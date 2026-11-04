@@ -3,373 +3,428 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Jeff Map Studio · Godot 地图生成插件</title>
-<meta name="description" content="Jeff Map Studio：Godot 4.7 地图生成与制作插件。自然地形、地牢、洞穴；方形与六角网格；俯视与等角 2.5D；像素风与手绘风；种子随机、手绘与锁定。">
-<meta property="og:title" content="Jeff Map Studio · Godot 地图生成插件">
-<meta property="og:description" content="Procedural tile maps for Godot 4.7 — seeds, square & hex grids, isometric 2.5D blocks, pixel and hand-painted styles.">
-<meta property="og:image" content="https://jeffstudio-dev.github.io/jeff-map-studio/images/island-pixel.png">
+<title>Jeff Map Studio · 种子生成的瓦片地图</title>
+<meta name="description" content="用种子生成的瓦片地图成品：海岸群岛、高原、地牢、洞穴，方形与六角，像素风与手绘风。可在浏览器中在线试做。">
+<meta property="og:title" content="Jeff Map Studio · 种子生成的瓦片地图">
+<meta property="og:description" content="Seed-generated tile maps — islands, highlands, dungeons and caves, square and hex, pixel and hand-painted. Try it in the browser.">
+<meta property="og:image" content="https://jeffstudio-dev.github.io/jeff-map-studio/gallery/maps/coast_20261017_pixel.png">
 <link rel="icon" href="images/icon.svg" type="image/svg+xml">
 <style>
 :root {
-  --bg: #f3f0e6;
-  --surface: #fffdf7;
-  --surface-2: #e9e4d6;
-  --text: #1d2a2f;
-  --muted: #5a686c;
-  --line: #d8d1bf;
+  --bg: #f2efe6;
+  --surface: #fffdf8;
+  --surface-2: #e7e2d4;
+  --text: #1c282d;
+  --muted: #5b686b;
+  --line: #d9d2c0;
   --accent: #2f7d45;
   --accent-ink: #ffffff;
-  --sand: #c98a3f;
-  --water: #1f8f8a;
   --stage: #16232b;
-  --shadow: 0 1px 2px rgba(29, 42, 47, 0.06), 0 8px 24px rgba(29, 42, 47, 0.08);
+  --stage-text: #e8eee9;
+  --shadow: 0 1px 2px rgba(28, 40, 45, 0.06), 0 10px 28px rgba(28, 40, 45, 0.1);
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #10181d;
-    --surface: #17232a;
-    --surface-2: #1f2e36;
-    --text: #e6ece8;
-    --muted: #9db0b3;
-    --line: #2b3d46;
+    --bg: #0f171c;
+    --surface: #162229;
+    --surface-2: #1e2d35;
+    --text: #e5ebe7;
+    --muted: #9cafb2;
+    --line: #2a3c45;
     --accent: #7cc35a;
-    --accent-ink: #10181d;
-    --sand: #e0a46c;
-    --water: #5fc4b4;
-    --stage: #16232b;
-    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 30px rgba(0, 0, 0, 0.35);
+    --accent-ink: #0f171c;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 32px rgba(0, 0, 0, 0.4);
   }
 }
 :root[data-theme="dark"] {
-  --bg: #10181d;
-  --surface: #17232a;
-  --surface-2: #1f2e36;
-  --text: #e6ece8;
-  --muted: #9db0b3;
-  --line: #2b3d46;
+  --bg: #0f171c;
+  --surface: #162229;
+  --surface-2: #1e2d35;
+  --text: #e5ebe7;
+  --muted: #9cafb2;
+  --line: #2a3c45;
   --accent: #7cc35a;
-  --accent-ink: #10181d;
-  --sand: #e0a46c;
-  --water: #5fc4b4;
-  --stage: #16232b;
-  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 30px rgba(0, 0, 0, 0.35);
+  --accent-ink: #0f171c;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 32px rgba(0, 0, 0, 0.4);
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
+  margin: 0; background: var(--bg); color: var(--text);
   font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Segoe UI", sans-serif;
-  font-size: 16px;
-  line-height: 1.7;
-  -webkit-font-smoothing: antialiased;
+  font-size: 16px; line-height: 1.7; -webkit-font-smoothing: antialiased;
 }
-a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
-img { max-width: 100%; height: auto; display: block; }
+a { color: var(--accent); text-underline-offset: 3px; }
+img { display: block; max-width: 100%; }
 .pixel { image-rendering: pixelated; image-rendering: crisp-edges; }
-.wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+.wrap { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+button { font: inherit; }
 
 header.top {
-  position: sticky; top: 0; z-index: 10;
-  background: color-mix(in srgb, var(--bg) 88%, transparent);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--line);
+  position: sticky; top: 0; z-index: 20; border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px);
 }
-header.top .wrap { display: flex; align-items: center; gap: 16px; height: 60px; }
+header.top .wrap { display: flex; align-items: center; gap: 12px; height: 58px; }
 .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--text); text-decoration: none; white-space: nowrap; }
-.brand img { width: 30px; height: 30px; }
-nav.links { display: flex; gap: 4px; margin-left: auto; overflow-x: auto; }
+.brand img { width: 28px; height: 28px; }
+nav.links { display: flex; gap: 2px; margin-left: auto; }
 nav.links a { color: var(--muted); text-decoration: none; padding: 6px 10px; border-radius: 8px; font-size: 15px; white-space: nowrap; }
 nav.links a:hover { color: var(--text); background: var(--surface-2); }
-.theme {
-  border: 1px solid var(--line); background: var(--surface); color: var(--text);
-  border-radius: 8px; width: 36px; height: 36px; cursor: pointer; font-size: 16px; flex: none;
-}
+.icon-button { border: 1px solid var(--line); background: var(--surface); color: var(--text); border-radius: 8px; width: 36px; height: 36px; cursor: pointer; flex: none; }
 
-.hero { padding: 64px 0 40px; }
-.hero .wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 40px; align-items: center; }
-.eyebrow { font-size: 14px; letter-spacing: 0.08em; color: var(--accent); font-weight: 700; margin: 0 0 12px; }
-h1 { font-size: clamp(34px, 5vw, 52px); line-height: 1.15; margin: 0 0 16px; letter-spacing: -0.01em; }
-.lead { font-size: 18px; color: var(--muted); margin: 0 0 8px; }
-.lead-en { font-size: 15px; color: var(--muted); margin: 0 0 28px; }
-.actions { display: flex; flex-wrap: wrap; gap: 12px; }
+/* Hero: a slow slideshow of finished maps */
+.hero { background: var(--stage); color: var(--stage-text); }
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 32px; align-items: center; padding-top: 40px; padding-bottom: 40px; }
+.hero h1 { font-size: clamp(30px, 4.4vw, 48px); line-height: 1.2; margin: 0 0 14px; }
+.hero p { color: #b8c8c6; margin: 0 0 22px; }
+.slides { position: relative; aspect-ratio: 2 / 1.08; }
+.slides figure { position: absolute; inset: 0; margin: 0; opacity: 0; transition: opacity 0.9s ease; display: grid; place-items: center; }
+.slides figure.on { opacity: 1; }
+.slides img { width: 100%; height: 100%; object-fit: contain; }
+.slide-caption { margin-top: 10px; font-size: 14px; color: #9fb3b1; min-height: 1.7em; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; }
 .button {
-  display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 10px;
+  display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 10px; cursor: pointer;
   font-weight: 650; text-decoration: none; border: 1px solid var(--line); color: var(--text); background: var(--surface);
 }
-.button.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
-.button:hover { filter: brightness(1.05); }
-.stage {
-  background: var(--stage); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow);
-  border: 1px solid color-mix(in srgb, var(--line) 60%, transparent);
-}
-.meta-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
-.chip { font-size: 13px; padding: 3px 10px; border-radius: 999px; background: var(--surface-2); color: var(--muted); }
+.button.primary { background: #7cc35a; border-color: #7cc35a; color: #10181d; }
+.hero .button:not(.primary) { background: transparent; color: var(--stage-text); border-color: #3a4f58; }
 
-section { padding: 56px 0; scroll-margin-top: 64px; }
+section { padding: 52px 0; scroll-margin-top: 60px; }
 section.alt { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-h2 { font-size: clamp(26px, 3.4vw, 34px); margin: 0 0 8px; line-height: 1.25; }
-.section-lead { color: var(--muted); margin: 0 0 32px; max-width: 760px; }
+h2 { font-size: clamp(24px, 3vw, 32px); margin: 0 0 6px; line-height: 1.25; }
+.lead { color: var(--muted); margin: 0 0 24px; max-width: 760px; }
 
-.features { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
-.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px; }
+/* Online try-out */
+.play {
+  position: relative; aspect-ratio: 16 / 10; border-radius: 16px; overflow: hidden; background: var(--stage);
+  box-shadow: var(--shadow); border: 1px solid var(--line);
+}
+.play iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.play .poster { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; color: var(--stage-text); padding: 16px; }
+.play .poster img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.35; }
+.play .poster div { position: relative; max-width: 520px; }
+.play .poster p { color: #c2d0ce; margin: 10px 0 18px; }
+.play-meta { display: flex; flex-wrap: wrap; gap: 8px 20px; color: var(--muted); font-size: 14px; margin-top: 12px; }
+
+/* Filters and grids */
+.filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 20px; }
+.filters .label { color: var(--muted); font-size: 14px; margin-right: 4px; }
+.chip {
+  border: 1px solid var(--line); background: var(--surface); color: var(--muted); border-radius: 999px;
+  padding: 4px 13px; cursor: pointer; font-size: 14px;
+}
+section.alt .chip { background: var(--bg); }
+.chip[aria-pressed="true"], section.alt .chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.sep { width: 1px; height: 22px; background: var(--line); margin: 0 6px; }
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
 section.alt .card { background: var(--bg); }
-.card h3 { font-size: 17px; margin: 0 0 6px; }
-.card p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.65; }
-.swatch { width: 28px; height: 8px; border-radius: 3px; margin-bottom: 14px; }
+.card button.view { display: block; width: 100%; padding: 0; border: 0; background: var(--stage); cursor: zoom-in; aspect-ratio: 16 / 10; }
+.card button.view img { width: 100%; height: 100%; object-fit: contain; padding: 8px; }
+.card .info { padding: 12px 14px 14px; }
+.card .title { font-weight: 700; }
+.card .meta { color: var(--muted); font-size: 13px; }
 
-.toggle { display: inline-flex; background: var(--surface-2); border-radius: 10px; padding: 4px; margin-bottom: 16px; }
-.toggle button {
-  border: 0; background: transparent; color: var(--muted); font: inherit; font-weight: 600;
-  padding: 7px 16px; border-radius: 8px; cursor: pointer;
-}
-.toggle button[aria-pressed="true"] { background: var(--surface); color: var(--text); box-shadow: var(--shadow); }
-.style-view figure { margin: 0; }
-.style-view [hidden] { display: none; }
+.terrains { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.terrain { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; }
+section.alt .terrain { background: var(--bg); }
+.terrain h3 { margin: 0 0 8px; font-size: 17px; }
+.row { display: flex; gap: 10px; align-items: flex-end; flex-wrap: wrap; }
+.row + .row { margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--line); }
+.row .tag { font-size: 12px; color: var(--muted); width: 100%; }
+.tile { display: grid; justify-items: center; gap: 2px; text-decoration: none; color: var(--muted); font-size: 12px; }
+.tile img { height: 96px; width: auto; }
+.objects { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; }
+.object { background: var(--stage); border-radius: 12px; padding: 14px 8px 10px; display: grid; justify-items: center; gap: 8px; color: var(--stage-text); font-size: 13px; }
+.object img { height: 120px; width: auto; object-fit: contain; }
+.objects-row + .objects-row { margin-top: 14px; }
+.objects-row h3 { font-size: 15px; color: var(--muted); margin: 0 0 8px; font-weight: 600; }
 
-.gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
-figure { margin: 0; }
-figcaption { font-size: 14px; color: var(--muted); padding: 10px 2px 0; }
-.stage img { width: 100%; }
-.gallery .stage { aspect-ratio: 16 / 10; display: grid; place-items: center; }
-.gallery .stage img { width: 100%; height: 100%; object-fit: contain; }
-.wide { max-width: 900px; margin: 20px auto 0; }
+/* Lightbox */
+dialog.viewer { border: 0; padding: 0; background: transparent; max-width: 96vw; max-height: 94vh; color: var(--stage-text); }
+dialog.viewer::backdrop { background: rgba(8, 12, 15, 0.86); }
+.viewer .frame { background: var(--stage); border-radius: 14px; overflow: hidden; display: grid; grid-template-rows: minmax(0, 1fr) auto; max-height: 94vh; }
+.viewer img { max-width: 96vw; max-height: 80vh; width: auto; height: auto; margin: auto; object-fit: contain; }
+.viewer .bar { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; padding: 12px 16px; font-size: 14px; border-top: 1px solid #2a3c45; }
+.viewer .bar strong { font-size: 15px; }
+.viewer .bar span { color: #a8bbb9; }
+.viewer .bar a { color: #9fe07a; }
+.viewer .close { margin-left: auto; background: transparent; border: 1px solid #3a4f58; color: var(--stage-text); border-radius: 8px; padding: 4px 12px; cursor: pointer; }
 
-.pipeline { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-bottom: 28px; }
-.step-no { font-size: 13px; font-weight: 700; color: var(--accent); letter-spacing: 0.06em; }
-.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; align-items: start; }
-
-.steps { counter-reset: step; list-style: none; padding: 0; margin: 0 0 28px; display: grid; gap: 12px; }
-.steps li { counter-increment: step; position: relative; padding-left: 44px; }
-.steps li::before {
-  content: counter(step); position: absolute; left: 0; top: 0; width: 30px; height: 30px; border-radius: 8px;
-  background: var(--surface-2); color: var(--text); font-weight: 700; display: grid; place-items: center; font-size: 14px;
-}
-pre {
-  background: var(--stage); color: #dfe8e3; border-radius: 12px; padding: 18px 20px; overflow-x: auto;
-  font-size: 14px; line-height: 1.6; margin: 0;
-}
-code { font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace; font-size: 0.92em; }
-p code, li code { background: var(--surface-2); padding: 1px 6px; border-radius: 5px; }
-.kw { color: #8fd3ff; } .ty { color: #b6e59a; } .st { color: #f3cf8c; } .cm { color: #7f949a; }
-
-.docs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
-.docs a {
-  display: block; padding: 16px 18px; border-radius: 12px; border: 1px solid var(--line);
-  background: var(--surface); color: var(--text); text-decoration: none;
-}
-section.alt .docs a { background: var(--bg); }
-.docs a:hover { border-color: var(--accent); }
-.docs strong { display: block; font-size: 16px; }
-.docs span { color: var(--muted); font-size: 14px; }
-
-.note { color: var(--muted); font-size: 14px; margin-top: 16px; }
-footer { padding: 36px 0 48px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); }
+footer { padding: 32px 0 44px; color: var(--muted); font-size: 14px; }
 footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
 
-@media (max-width: 900px) {
-  .hero .wrap { grid-template-columns: 1fr; gap: 28px; }
-  .hero { padding-top: 40px; }
-  .features { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .pipeline, .docs { grid-template-columns: 1fr; }
-  .gallery, .split { grid-template-columns: 1fr; }
-  nav.links a.optional { display: none; }
+@media (max-width: 960px) {
+  .hero .wrap { grid-template-columns: 1fr; }
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .terrains { grid-template-columns: 1fr; }
+  .objects { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (max-width: 600px) {
   nav.links { display: none; }
-  .theme { margin-left: auto; }
-}
-@media (max-width: 520px) {
-  .features { grid-template-columns: 1fr; }
-  section { padding: 44px 0; }
+  .icon-button { margin-left: auto; }
+  .grid { grid-template-columns: 1fr; }
+  .tile img { height: 72px; }
+  .play { aspect-ratio: 4 / 5; }
 }
 </style>
 </head>
 <body>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#"><img src="images/icon.svg" alt="" width="30" height="30">Jeff Map Studio</a>
+    <a class="brand" href="#"><img src="images/icon.svg" alt="" width="28" height="28">Jeff Map Studio</a>
     <nav class="links" aria-label="页面导航">
-      <a href="#features">功能</a>
-      <a href="#styles">双风格</a>
-      <a href="#gallery" class="optional">画廊</a>
-      <a href="#pipeline" class="optional">美术管线</a>
-      <a href="#start">快速开始</a>
-      <a href="#docs" class="optional">文档</a>
-      <a href="https://github.com/jeffstudio-dev/jeff-map-studio">GitHub</a>
+      <a href="#play">在线试做</a>
+      <a href="#maps">地图成品</a>
+      <a href="#tiles" class="optional">地块参考</a>
+      <a href="#objects" class="optional">物品</a>
+      <a href="https://github.com/jeffstudio-dev/jeff-map-studio" class="optional">GitHub</a>
     </nav>
-    <button class="theme" type="button" id="theme" aria-label="切换浅色或深色">◐</button>
+    <button class="icon-button" type="button" id="theme" aria-label="切换浅色或深色">◐</button>
   </div>
 </header>
 
 <main>
-  <section class="hero">
+  <section class="hero" aria-label="地图成品轮播">
     <div class="wrap">
       <div>
-        <p class="eyebrow">JEFF STUDIO · GODOT 4.7 插件</p>
-        <h1>用种子生成可以直接用的瓦片地图</h1>
-        <p class="lead">自然地形、地牢、洞穴一键生成；方形或六角网格，俯视或等角 2.5D，像素风与手绘风随时切换。生成后还能手绘、锁定、再生成。</p>
-        <p class="lead-en">Procedural tile maps for Godot — seeds, square &amp; hex grids, isometric height blocks, pixel and hand-painted styles.</p>
+        <h1>每一张都是种子生成的地图</h1>
+        <p>海岛、高原、地牢、洞穴，方形与六角，像素风与手绘风。换一个种子，就是一张新地图。</p>
         <div class="actions">
-          <a class="button primary" href="https://github.com/jeffstudio-dev/jeff-map-studio">在 GitHub 查看</a>
-          <a class="button" href="#start">快速开始</a>
-        </div>
-        <div class="meta-row">
-          <span class="chip">Godot 4.7.2</span>
-          <span class="chip">GDScript · 无第三方依赖</span>
-          <span class="chip">MIT 许可</span>
+          <a class="button primary" href="#play">在线试做</a>
+          <a class="button" href="#maps">浏览 36 张成品</a>
         </div>
       </div>
-      <figure class="stage">
-        <img class="pixel" src="images/island-pixel.png" width="1200" height="900" alt="像素风等角岛屿地图：沙滩、草地、岩石高地和雪顶，散布树木、蘑菇、棕榈和灯塔">
-      </figure>
-    </div>
-  </section>
-
-  <section id="features" class="alt">
-    <div class="wrap">
-      <h2>功能</h2>
-      <p class="section-lead">编辑器里有独立的 Map Studio 工作区；生成、修改、保存和导出场景都在这里完成。运行时也可以用同一套 API 在游戏里实时生成。</p>
-      <div class="features">
-        <div class="card"><div class="swatch" style="background: var(--accent)"></div><h3>三种生成器</h3><p>自然地形（海岛、沙滩、山地、雪地）、房间地牢（最小生成树 + A* 走廊）、细胞自动机洞穴，结构保证连通。</p></div>
-        <div class="card"><div class="swatch" style="background: var(--water)"></div><h3>方形与六角</h3><p>方形、尖顶六角、平顶六角三种网格，与 Godot 原生 TileMapLayer 坐标一致。</p></div>
-        <div class="card"><div class="swatch" style="background: var(--sand)"></div><h3>等角 2.5D 地块</h3><p>0–16 层高度，自动生成侧面与底座，内部被遮挡的侧面自动隐藏。也可切换为俯视。</p></div>
-        <div class="card"><div class="swatch" style="background: #b9a3e0"></div><h3>像素风 · 手绘风</h3><p>切换风格只重新渲染，不改变地图格子、手绘修改、锁定和物品位置。</p></div>
-        <div class="card"><div class="swatch" style="background: var(--accent)"></div><h3>种子与锁定</h3><p>相同种子得到相同地图。用画笔改地形、升降高度、放置物品，锁定的区域在重新生成时保留。</p></div>
-        <div class="card"><div class="swatch" style="background: var(--water)"></div><h3>程序化材质</h3><p>草地、沙土、岩石、水面、石砖可调配色、密度、尺度、像素步长，导出无缝 PNG 和单块地块图。</p></div>
-        <div class="card"><div class="swatch" style="background: var(--sand)"></div><h3>导入你的图集</h3><p>绑定 PNG 图集或 TileSet：按地形、用途、边掩码匹配瓦片，带权重的确定性随机。</p></div>
-        <div class="card"><div class="swatch" style="background: #b9a3e0"></div><h3>导出与运行时</h3><p>一键应用到当前场景（可撤销），或烘焙成独立场景；<code>JeffMap2D</code> 节点支持运行时生成和查询。</p></div>
+      <div>
+        <div class="slides" id="slides"></div>
+        <div class="slide-caption" id="slide-caption" aria-live="polite"></div>
       </div>
     </div>
   </section>
 
-  <section id="styles">
+  <section id="play">
     <div class="wrap">
-      <h2>同一张地图，两种画风</h2>
-      <p class="section-lead">像素风在与屏幕对齐的像素网格上用代码绘制，地表、侧面和物品共用同一像素尺寸；手绘风使用配套绘制的材质与物品。切换时地图内容完全不变。</p>
-      <div class="style-view" data-group="island">
-        <div class="toggle" role="group" aria-label="选择画风">
-          <button type="button" aria-pressed="true" data-show="pixel">像素风</button>
-          <button type="button" aria-pressed="false" data-show="painted">手绘风</button>
+      <h2>在线试做</h2>
+      <p class="lead">在浏览器里运行完整的地图工作区：选预设、换种子、切换像素风与手绘风、方形与六角、俯视与等角，再用画笔改地形、升降高度、放置物品。</p>
+      <div class="play" id="play-frame">
+        <div class="poster">
+          <img src="gallery/maps/highland_2026_pixel.png" alt="">
+          <div>
+            <strong style="font-size: 22px">Map Studio 网页版</strong>
+            <p>首次加载约 45 MB，之后会被浏览器缓存。建议使用电脑上的 Chrome、Edge 或 Firefox。</p>
+            <button class="button primary" type="button" id="play-start">启动在线试做</button>
+          </div>
         </div>
-        <figure class="stage" data-style="pixel"><img class="pixel" src="images/pixel-square.png" width="1084" height="658" loading="lazy" alt="像素风方形等角小岛：草地高台、沙岸、水域与物品"></figure>
-        <figure class="stage" data-style="painted" hidden><img src="images/painted-square.png" width="1084" height="658" loading="lazy" alt="手绘风方形等角小岛：同一布局的手绘材质"></figure>
+      </div>
+      <div class="play-meta">
+        <span>滚轮缩放 · 右键或中键拖动画布</span>
+        <span>网页版默认 64×64，可在右侧调大</span>
+        <span>网页版不能保存文件，保存与导出请使用插件</span>
+        <a href="play/index.html" target="_blank" rel="noopener">在新窗口打开 ↗</a>
       </div>
     </div>
   </section>
 
-  <section id="gallery" class="alt">
+  <section id="maps" class="alt">
     <div class="wrap">
-      <h2>画廊</h2>
-      <p class="section-lead">以下图片都由插件在后台直接合成（CPU 合成预览，不是 GPU 截图）。</p>
-      <div class="gallery">
-        <figure><div class="stage"><img class="pixel" src="images/pixel-hex-pointy.png" width="1050" height="578" loading="lazy" alt="像素风尖顶六角等角地图"></div><figcaption>尖顶六角 · 等角 · 像素风</figcaption></figure>
-        <figure><div class="stage"><img src="images/painted-hex-flat.png" width="956" height="630" loading="lazy" alt="手绘风平顶六角等角地图"></div><figcaption>平顶六角 · 等角 · 手绘风</figcaption></figure>
-        <figure><div class="stage"><img class="pixel" src="images/dungeon-pixel.png" width="1200" height="720" loading="lazy" alt="像素风俯视地牢：石板地面、墙体与宝箱"></div><figcaption>房间地牢 · 俯视 · 像素风</figcaption></figure>
-        <figure><div class="stage"><img class="pixel" src="images/cave-pixel.png" width="1200" height="720" loading="lazy" alt="像素风俯视洞穴"></div><figcaption>天然洞穴 · 俯视 · 像素风</figcaption></figure>
-        <figure><div class="stage"><img src="images/island-painted.png" width="1200" height="900" loading="lazy" alt="手绘风等角岛屿地图"></div><figcaption>海岸群岛预设 · 手绘风</figcaption></figure>
-        <figure><div class="stage"><img class="pixel" src="images/pixel-tile-board.png" width="960" height="800" loading="lazy" alt="像素风单块地块：草地、沙地、水域三种形状"></div><figcaption>单块地块：方形、尖顶六角、平顶六角</figcaption></figure>
-      </div>
-      <figure style="margin-top: 20px"><div class="stage" style="padding: 8px 0"><img class="pixel" src="images/pixel-objects.png" width="1020" height="222" loading="lazy" alt="六个像素物品：橡树、符文石、宝箱、蘑菇群、棕榈树、灯塔"></div><figcaption>像素物品在 Aseprite 中绘制：橡树、符文石、宝箱、蘑菇群、棕榈树、灯塔</figcaption></figure>
+      <h2>地图成品</h2>
+      <p class="lead">6 个预设 × 3 个种子 × 2 种画风，全部由插件直接生成，未经修图。点开大图可下载；在试做里选择同一预设、输入同一种子，并把宽高设为 48，就能得到相同的地图。</p>
+      <div class="filters" id="map-filters" role="group" aria-label="筛选地图"></div>
+      <div class="grid" id="map-grid"></div>
     </div>
   </section>
 
-  <section id="pipeline">
+  <section id="tiles">
     <div class="wrap">
-      <h2>美术管线：概念图 + 规范 + 代码</h2>
-      <p class="section-lead">地形外观正在迁移到“规范驱动”：美术在 Aseprite 里定色阶和图案，规范文件定规则和随机范围，代码按种子绘制。像素风草地已经完成，其余地形逐步迁移。</p>
-      <div class="pipeline">
-        <div class="card"><div class="step-no">01 · ASEPRITE</div><h3>概念图</h3><p>色阶切片、图案切片和目标样板。图案直接用真实颜色绘制，导入时自动换算成色阶，换主色会跟着变色。</p></div>
-        <div class="card"><div class="step-no">02 · .TRES</div><h3>外观规范</h3><p>可调参数的范围、四种草地“情绪”、区域大小、图案数量，都在 Godot 检查器里编辑。</p></div>
-        <div class="card"><div class="step-no">03 · GDSCRIPT</div><h3>按种子绘制</h3><p>同样的规范、参数和种子得到逐字节相同的图；任意两个变体相邻都无接缝，有自动测试保证。</p></div>
+      <h2>地块参考</h2>
+      <p class="lead">8 种地形的单块地块：方形、尖顶六角、平顶六角三种形状，以及同一地形用不同种子生成的变化。透明背景 PNG，点击可下载。</p>
+      <div class="filters" id="tile-filters" role="group" aria-label="选择画风">
+        <button class="chip" type="button" aria-pressed="true" data-style="pixel">像素风</button>
+        <button class="chip" type="button" aria-pressed="false" data-style="painted">手绘风</button>
       </div>
-      <figure><div class="stage" style="padding: 12px"><img class="pixel" src="images/grass-concept.png" width="1060" height="370" loading="lazy" alt="Aseprite 草地概念图：色阶、图案与参考样板"></div><figcaption>草地概念图（Aseprite）：左侧色阶与图案由代码读取，右侧样板用于评审</figcaption></figure>
-      <figure class="wide"><div class="stage"><img class="pixel" src="images/grass-before-after.png" width="1320" height="1450" loading="lazy" alt="大片草地改造前后对比：上为逐格随机，下为四种情绪按区域成片分布"></div><figcaption>大片草地前后对比：四种情绪按区域成片，每种另有格内子变体，减少规律重复</figcaption></figure>
+      <div class="terrains" id="terrain-list"></div>
     </div>
   </section>
 
-  <section id="start" class="alt">
+  <section id="objects" class="alt">
     <div class="wrap">
-      <h2>快速开始</h2>
-      <p class="section-lead">需要 Godot 4.7.2 标准版（不需要 .NET）。</p>
-      <div class="split">
-        <div>
-          <ol class="steps">
-            <li>下载或克隆仓库，把 <code>addons/jeff_map_studio</code> 复制到你的项目中。</li>
-            <li>打开 <strong>项目设置 → 插件</strong>，启用 <strong>Jeff Map Studio</strong>。</li>
-            <li>编辑器顶部切换到 <strong>Map Studio</strong>，选择左侧预设或调整参数，点击 <strong>生成地图</strong>。</li>
-            <li>用画笔修改、锁定区域，再保存地图、导出场景，或 <strong>应用到当前场景</strong>。</li>
-          </ol>
-          <p class="note">也可以直接用 Godot 打开整个仓库：插件已在演示工程中启用，按 F5 运行独立工作区演示。</p>
-        </div>
-        <pre><code><span class="kw">extends</span> <span class="ty">Node2D</span>
-
-<span class="kw">@onready var</span> map: <span class="ty">JeffMap2D</span> = $JeffMap2D
-
-<span class="kw">func</span> _ready() -> <span class="ty">void</span>:
-    map.generation_completed.connect(_map_ready)
-    <span class="kw">var</span> settings := <span class="ty">MapProfile</span>.new()
-    settings.seed_value = 12345
-    settings.grid = <span class="ty">MapProfile</span>.Grid.HEX
-    settings.projection = <span class="ty">MapProfile</span>.ProjectionMode.ISOMETRIC
-    settings.width = 128
-    settings.height = 128
-    map.generate(settings)
-
-<span class="kw">func</span> _map_ready(data: <span class="ty">MapData</span>) -> <span class="ty">void</span>:
-    <span class="cm"># 地形、高度、物品</span>
-    print(map.get_cell(<span class="ty">Vector2i</span>(5, 5)))</code></pre>
-      </div>
-      <figure style="margin-top: 32px"><div class="stage"><img src="images/editor.png" width="1920" height="971" loading="lazy" alt="Godot 编辑器中的 Map Studio 工作区"></div><figcaption>Godot 编辑器中的 Map Studio 工作区（界面截图来自 1.1 版本，地块美术已更新）</figcaption></figure>
-    </div>
-  </section>
-
-  <section id="docs">
-    <div class="wrap">
-      <h2>文档</h2>
-      <p class="section-lead">详细说明都在仓库里，均为中文。</p>
-      <div class="docs">
-        <a href="https://github.com/jeffstudio-dev/jeff-map-studio/blob/main/addons/jeff_map_studio/README.md"><strong>使用说明与 API</strong><span>生成器、画笔、导入图集、运行时 API</span></a>
-        <a href="https://github.com/jeffstudio-dev/jeff-map-studio/blob/main/addons/jeff_map_studio/docs/STYLES.md"><strong>像素与手绘风格</strong><span>双风格、物品、规范驱动的地形</span></a>
-        <a href="https://github.com/jeffstudio-dev/jeff-map-studio/blob/main/addons/jeff_map_studio/docs/BLOCKS.md"><strong>可拼接地块</strong><span>厚度、侧面材质、单块预览</span></a>
-        <a href="https://github.com/jeffstudio-dev/jeff-map-studio/blob/main/addons/jeff_map_studio/docs/ARCHITECTURE.md"><strong>架构与维护</strong><span>模块划分、线程与资源</span></a>
-        <a href="https://github.com/jeffstudio-dev/jeff-map-studio/blob/main/design/DESIGN.md"><strong>美术管线设计稿</strong><span>概念图、规范文件、随机模型</span></a>
-        <a href="https://github.com/jeffstudio-dev/jeff-map-studio/blob/main/tests/README.md"><strong>测试</strong><span>后台测试入口与覆盖范围</span></a>
-      </div>
+      <h2>物品</h2>
+      <p class="lead">生成器按地形自动摆放物品：草地上的树和蘑菇、沙滩上的棕榈、岩石上的符文石、地牢里的宝箱、海岸边的灯塔。也可以用画笔手动放置。</p>
+      <div id="object-list"></div>
     </div>
   </section>
 </main>
 
+<dialog class="viewer" id="viewer">
+  <div class="frame">
+    <img id="viewer-image" alt="">
+    <div class="bar">
+      <strong id="viewer-title"></strong>
+      <span id="viewer-meta"></span>
+      <a id="viewer-download" download>下载原图</a>
+      <button class="close" type="button" id="viewer-close">关闭</button>
+    </div>
+  </div>
+</dialog>
+
 <footer>
   <div class="wrap">
-    <span>© Jeff Studio · 代码、图标与程序化示例素材采用 MIT 许可</span>
-    <span><a href="https://github.com/jeffstudio-dev">Jeff Studio on GitHub</a> · <a href="https://github.com/jeffstudio-dev/jeff-map-studio/issues">反馈问题</a></span>
+    <span>画面均由 <a href="https://github.com/jeffstudio-dev/jeff-map-studio">Jeff Map Studio</a>（Godot 4.7 插件，MIT 许可）生成 · 后台 CPU 合成</span>
+    <span><a href="https://github.com/jeffstudio-dev/jeff-map-studio/blob/main/addons/jeff_map_studio/README.md">使用说明</a> · <a href="https://github.com/jeffstudio-dev">Jeff Studio</a></span>
   </div>
 </footer>
+<noscript><p class="wrap">画廊需要启用 JavaScript。</p></noscript>
 
 <script>
 (function () {
   var root = document.documentElement;
-  var key = "jms-theme";
-  try {
-    var saved = localStorage.getItem(key);
-    if (saved) root.setAttribute("data-theme", saved);
-  } catch (e) {}
+  try { var saved = localStorage.getItem("jms-theme"); if (saved) root.setAttribute("data-theme", saved); } catch (e) {}
   document.getElementById("theme").addEventListener("click", function () {
     var dark = root.getAttribute("data-theme") === "dark" ||
-      (!root.getAttribute("data-theme") && window.matchMedia("(prefers-color-scheme: dark)").matches);
-    var next = dark ? "light" : "dark";
-    root.setAttribute("data-theme", next);
-    try { localStorage.setItem(key, next); } catch (e) {}
+      (!root.getAttribute("data-theme") && matchMedia("(prefers-color-scheme: dark)").matches);
+    root.setAttribute("data-theme", dark ? "light" : "dark");
+    try { localStorage.setItem("jms-theme", dark ? "light" : "dark"); } catch (e) {}
   });
-  document.querySelectorAll(".style-view").forEach(function (view) {
-    view.querySelectorAll(".toggle button").forEach(function (button) {
+
+  // Online try-out loads only on request: the engine is about 45 MB.
+  document.getElementById("play-start").addEventListener("click", function () {
+    var frame = document.getElementById("play-frame");
+    var iframe = document.createElement("iframe");
+    iframe.src = "play/index.html";
+    iframe.title = "Map Studio 网页版";
+    iframe.allow = "fullscreen";
+    frame.innerHTML = "";
+    frame.appendChild(iframe);
+    iframe.focus();
+  });
+
+  var STYLE = ["像素风", "手绘风"];
+  var SHAPES = [["square", "方形"], ["hex_pointy", "尖顶六角"], ["hex_flat", "平顶六角"]];
+  function el(tag, attrs, children) {
+    var node = document.createElement(tag);
+    Object.keys(attrs || {}).forEach(function (key) {
+      if (key === "text") node.textContent = attrs[key];
+      else if (key === "class") node.className = attrs[key];
+      else node.setAttribute(key, attrs[key]);
+    });
+    (children || []).forEach(function (child) { node.appendChild(child); });
+    return node;
+  }
+  function describeMap(map, sizeCells) {
+    return "种子 " + map.seed + " · " + map.grid + " · " + map.projection + " · " + sizeCells + "×" + sizeCells + " · " + STYLE[map.style];
+  }
+
+  var viewer = document.getElementById("viewer");
+  function openViewer(src, title, meta, pixel) {
+    var image = document.getElementById("viewer-image");
+    image.src = src;
+    image.alt = title;
+    image.className = pixel ? "pixel" : "";
+    document.getElementById("viewer-title").textContent = title;
+    document.getElementById("viewer-meta").textContent = meta;
+    document.getElementById("viewer-download").href = src;
+    if (viewer.showModal) viewer.showModal(); else window.open(src, "_blank");
+  }
+  document.getElementById("viewer-close").addEventListener("click", function () { viewer.close(); });
+  viewer.addEventListener("click", function (event) { if (event.target === viewer) viewer.close(); });
+
+  fetch("gallery/manifest.json").then(function (response) { return response.json(); }).then(function (data) {
+    var cells = function (map) { return Math.round(Math.sqrt(map.cells)); };
+    // Lead with variety: every preset for the first seed, then the next seed.
+    var seedOrder = [];
+    data.maps.forEach(function (m) { if (seedOrder.indexOf(m.seed) < 0) seedOrder.push(m.seed); });
+    data.maps.sort(function (a, b) { return seedOrder.indexOf(a.seed) - seedOrder.indexOf(b.seed); });
+    // Hero slideshow: alternate pixel and painted takes of different presets.
+    var picks = ["highland_7_pixel.png", "highland_2026_painted.webp", "coast_2026_pixel.png", "highland_20261017_painted.webp", "hex_islands_20261017_pixel.png", "hex_dungeon_7_painted.webp"];
+    var slides = document.getElementById("slides");
+    var caption = document.getElementById("slide-caption");
+    var shown = picks.map(function (file) { return data.maps.filter(function (m) { return m.file === file; })[0]; }).filter(Boolean);
+    shown.forEach(function (map, index) {
+      slides.appendChild(el("figure", {"class": index === 0 ? "on" : ""}, [el("img", {src: "gallery/maps/" + map.file, alt: map.preset + "，" + describeMap(map, cells(map))})]));
+    });
+    var current = 0;
+    function label() { var m = shown[current]; caption.textContent = m.preset + " · " + describeMap(m, cells(m)); }
+    label();
+    if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setInterval(function () {
+        slides.children[current].classList.remove("on");
+        current = (current + 1) % shown.length;
+        slides.children[current].classList.add("on");
+        label();
+      }, 4500);
+    }
+
+    // Map gallery with style and preset filters.
+    var filters = {style: "all", preset: "all"};
+    var bar = document.getElementById("map-filters");
+    function chip(group, value, text) {
+      var button = el("button", {"class": "chip", type: "button", "aria-pressed": filters[group] === value ? "true" : "false", text: text});
       button.addEventListener("click", function () {
-        view.querySelectorAll(".toggle button").forEach(function (b) { b.setAttribute("aria-pressed", b === button ? "true" : "false"); });
-        view.querySelectorAll("[data-style]").forEach(function (f) { f.hidden = f.getAttribute("data-style") !== button.getAttribute("data-show"); });
+        filters[group] = value;
+        bar.querySelectorAll("[data-group='" + group + "']").forEach(function (b) { b.setAttribute("aria-pressed", b === button ? "true" : "false"); });
+        renderMaps();
+      });
+      button.setAttribute("data-group", group);
+      return button;
+    }
+    bar.appendChild(el("span", {"class": "label", text: "画风"}));
+    [["all", "全部"], ["0", "像素风"], ["1", "手绘风"]].forEach(function (p) { bar.appendChild(chip("style", p[0], p[1])); });
+    bar.appendChild(el("span", {"class": "sep"}));
+    bar.appendChild(el("span", {"class": "label", text: "预设"}));
+    bar.appendChild(chip("preset", "all", "全部"));
+    data.maps.map(function (m) { return m.preset; }).filter(function (v, i, a) { return a.indexOf(v) === i; }).forEach(function (name) { bar.appendChild(chip("preset", name, name)); });
+    var grid = document.getElementById("map-grid");
+    function renderMaps() {
+      grid.innerHTML = "";
+      data.maps.filter(function (m) {
+        return (filters.style === "all" || String(m.style) === filters.style) && (filters.preset === "all" || m.preset === filters.preset);
+      }).forEach(function (map) {
+        var meta = describeMap(map, cells(map));
+        var view = el("button", {"class": "view", type: "button", "aria-label": "放大查看 " + map.preset + " " + meta},
+          [el("img", {src: "gallery/maps/" + map.thumb, alt: "", loading: "lazy"})]);
+        view.addEventListener("click", function () { openViewer("gallery/maps/" + map.file, map.preset + " · " + map.subtitle, meta, map.pixel); });
+        grid.appendChild(el("article", {"class": "card"}, [view, el("div", {"class": "info"}, [
+          el("div", {"class": "title", text: map.preset}),
+          el("div", {"class": "meta", text: meta})])]));
+      });
+    }
+    renderMaps();
+
+    // Terrain references; pixel blocks are stored at art resolution and shown enlarged, crisp.
+    var tileStyle = "pixel";
+    var list = document.getElementById("terrain-list");
+    function tile(terrain, key, text) {
+      var file = terrain.files[terrain.id + "_" + tileStyle + "_" + key];
+      var image = el("img", {src: "gallery/blocks/" + file, alt: terrain.name + " " + text, loading: "lazy", "class": tileStyle === "pixel" ? "pixel" : ""});
+      return el("a", {"class": "tile", href: "gallery/blocks/" + file, download: "", title: "下载 PNG"}, [image, el("span", {text: text})]);
+    }
+    function renderTiles() {
+      list.innerHTML = "";
+      data.terrains.forEach(function (terrain) {
+        var shapes = el("div", {"class": "row"}, [el("span", {"class": "tag", text: "三种形状"})].concat(SHAPES.map(function (s) { return tile(terrain, s[0], s[1]); })));
+        var seeds = el("div", {"class": "row"}, [el("span", {"class": "tag", text: "不同种子"})].concat([42, 1337, 90210].map(function (s) { return tile(terrain, "seed" + s, "种子 " + s); })));
+        list.appendChild(el("div", {"class": "terrain"}, [el("h3", {text: terrain.name}), shapes, seeds]));
+      });
+    }
+    document.querySelectorAll("#tile-filters .chip").forEach(function (button) {
+      button.addEventListener("click", function () {
+        tileStyle = button.getAttribute("data-style");
+        document.querySelectorAll("#tile-filters .chip").forEach(function (b) { b.setAttribute("aria-pressed", b === button ? "true" : "false"); });
+        renderTiles();
       });
     });
+    renderTiles();
+
+    // Objects in both styles.
+    var objects = document.getElementById("object-list");
+    [["pixel", "像素风 · 在 Aseprite 中绘制"], ["painted", "手绘风"]].forEach(function (pair) {
+      objects.appendChild(el("div", {"class": "objects-row"}, [el("h3", {text: pair[1]}), el("div", {"class": "objects"}, data.objects.map(function (o) {
+        return el("div", {"class": "object"}, [el("img", {src: "gallery/objects/" + o[pair[0]], alt: o.name + "（" + pair[1] + "）", loading: "lazy", "class": pair[0] === "pixel" ? "pixel" : ""}), el("span", {text: o.name})]);
+      }))]));
+    });
+  }).catch(function () {
+    document.getElementById("map-grid").textContent = "画廊数据加载失败，请刷新页面。";
   });
 })();
 </script>

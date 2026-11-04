@@ -5,6 +5,8 @@ extends VBoxContainer
 signal apply_requested(data: MapData, library: TileLibrary)
 signal files_saved
 
+const WEB_PROJECT_URL := "https://github.com/jeffstudio-dev/jeff-map-studio"
+const WEB_MAP_SIZE := 64
 var profile := MapProfile.new()
 var library := TileLibrary.new()
 var canvas: MapStudioCanvas
@@ -124,10 +126,14 @@ func _build_toolbar() -> void:
 	var spacer := Control.new()
 	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	toolbar.add_child(spacer)
-	toolbar.add_child(StudioUI.button("打开", _open_dialog))
-	toolbar.add_child(StudioUI.button("保存地图", func() -> void: _save_dialog("map")))
-	toolbar.add_child(StudioUI.button("保存配置", func() -> void: _save_dialog("profile")))
-	toolbar.add_child(StudioUI.button("导出场景", func() -> void: _save_dialog("scene")))
+	if OS.has_feature("web"):
+		# The browser build cannot write project files; saving lives in the plugin itself.
+		toolbar.add_child(StudioUI.button("下载插件以保存和导出", func() -> void: OS.shell_open(WEB_PROJECT_URL)))
+	else:
+		toolbar.add_child(StudioUI.button("打开", _open_dialog))
+		toolbar.add_child(StudioUI.button("保存地图", func() -> void: _save_dialog("map")))
+		toolbar.add_child(StudioUI.button("保存配置", func() -> void: _save_dialog("profile")))
+		toolbar.add_child(StudioUI.button("导出场景", func() -> void: _save_dialog("scene")))
 	if Engine.is_editor_hint():
 		toolbar.add_child(StudioUI.button("应用到当前场景", func() -> void:
 			if canvas.map.map_data != null and not canvas.map.busy:
@@ -277,7 +283,15 @@ func _sync_fields() -> void:
 
 func ensure_initialized() -> void:
 	if canvas.map.map_data == null and not canvas.map.busy:
+		_fit_web(profile)
+		_sync_fields()
 		generate_map()
+
+## Browser builds run generation on the main thread; start from smaller maps there.
+func _fit_web(settings: MapProfile) -> void:
+	if OS.has_feature("web"):
+		settings.width = mini(settings.width, WEB_MAP_SIZE)
+		settings.height = mini(settings.height, WEB_MAP_SIZE)
 
 func generate_map() -> void:
 	_debounce.stop()
@@ -295,6 +309,7 @@ func _preset(item: Array) -> void:
 	profile.projection = item[4]
 	profile.style = item[5]
 	profile.base_thickness = 16
+	_fit_web(profile)
 	profile.island = item[0] != "高原大陆"
 	if profile.generator != MapProfile.Generator.NATURE:
 		profile.decoration_density = 0.02

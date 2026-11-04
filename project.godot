@@ -30,3 +30,7 @@ enabled=PackedStringArray("res://addons/jeff_map_studio/plugin.cfg")
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 environment/defaults/default_clear_color=Color(0.035, 0.048, 0.065, 1)
+
+[gui]
+
+theme/custom_font.web="res://demo/fonts/Unifont16.otf"

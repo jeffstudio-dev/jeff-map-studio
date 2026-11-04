@@ -1,0 +1,764 @@
+{
+ "maps": [
+  {
+   "cells": 2304,
+   "file": "coast_20261017_pixel.png",
+   "grid": "方形",
+   "preset": "海岸群岛",
+   "projection": "等角",
+   "seed": 20261017,
+   "size": [
+    1536,
+    776
+   ],
+   "style": 0,
+   "subtitle": "沙滩 · 森林 · 浅海",
+   "thumb": "coast_20261017_pixel.png",
+   "pixel": true
+  },
+  {
+   "cells": 2304,
+   "file": "coast_20261017_painted.webp",
+   "grid": "方形",
+   "preset": "海岸群岛",
+   "projection": "等角",
+   "seed": 20261017,
+   "size": [
+    1536,
+    776
+   ],
+   "style": 1,
+   "subtitle": "沙滩 · 森林 · 浅海",
+   "thumb": "coast_20261017_painted_thumb.webp",
+   "pixel": false
+  },
+  {
+   "cells": 2304,
+   "file": "coast_7_pixel.png",
+   "grid": "方形",
+   "preset": "海岸群岛",
+   "projection": "等角",
+   "seed": 7,
+   "size": [
+    1536,
+    776
+   ],
+   "style": 0,
+   "subtitle": "沙滩 · 森林 · 浅海",
+   "thumb": "coast_7_pixel.png",
+   "pixel": true
+  },
+  {
+   "cells": 2304,
+   "file": "coast_7_painted.webp",
+   "grid": "方形",
+   "preset": "海岸群岛",
+   "projection": "等角",
+   "seed": 7,
+   "size": [
+    1536,
+    776
+   ],
+   "style": 1,
+   "subtitle": "沙滩 · 森林 · 浅海",
+   "thumb": "coast_7_painted_thumb.webp",
+   "pixel": false
+  },
+  {
+   "cells": 2304,
+   "file": "coast_2026_pixel.png",
+   "grid": "方形",
+   "preset": "海岸群岛",
+   "projection": "等角",
+   "seed": 2026,
+   "size": [
+    1536,
+    776
+   ],
+   "style": 0,
+   "subtitle": "沙滩 · 森林 · 浅海",
+   "thumb": "coast_2026_pixel.png",
+   "pixel": true
+  },
+  {
+   "cells": 2304,
+   "file": "coast_2026_painted.webp",
+   "grid": "方形",
+   "preset": "海岸群岛",
+   "projection": "等角",
+   "seed": 2026,
+   "size": [
+    1536,
+    776
+   ],
+   "style": 1,
+   "subtitle": "沙滩 · 森林 · 浅海",
+   "thumb": "coast_2026_painted_thumb.webp",
+   "pixel": false
+  },
+  {
+   "cells": 2304,
+   "file": "highland_20261017_pixel.png",
+   "grid": "方形",
+   "preset": "高原大陆",
+   "projection": "等角",
+   "seed": 20261017,
+   "size": [
+    1536,
+    784
+   ],
+   "style": 0,
+   "subtitle": "岩层 · 高差 · 雪地",
+   "thumb": "highland_20261017_pixel.png",
+   "pixel": true
+  },
+  {
+   "cells": 2304,
+   "file": "highland_20261017_painted.webp",
+   "grid": "方形",
+   "preset": "高原大陆",
+   "projection": "等角",
+   "seed": 20261017,
+   "size": [
+    1536,
+    784
+   ],
+   "style": 1,
+   "subtitle": "岩层 · 高差 · 雪地",
+   "thumb": "highland_20261017_painted_thumb.webp",
+   "pixel": false
+  },
+  {
+   "cells": 2304,
+   "file": "highland_7_pixel.png",
+   "grid": "方形",
+   "preset": "高原大陆",
+   "projection": "等角",
+   "seed": 7,
+   "size": [
+    1536,
+    784
+   ],
+   "style": 0,
+   "subtitle": "岩层 · 高差 · 雪地",
+   "thumb": "highland_7_pixel.png",
+   "pixel": true
+  },
+  {
+   "cells": 2304,
+   "file": "highland_7_painted.webp",
+   "grid": "方形",
+   "preset": "高原大陆",
+   "projection": "等角",
+   "seed": 7,
+   "size": [
+    1536,
+    784
+   ],
+   "style": 1,
+   "subtitle": "岩层 · 高差 · 雪地",
+   "thumb": "highland_7_painted_thumb.webp",
+   "pixel": false
+  },
+  {
+   "cells": 2304,
+   "file": "highland_2026_pixel.png",
+   "grid": "方形",
+   "preset": "高原大陆",
+   "projection": "等角",
+   "seed": 2026,
+   "size": [
+    1536,
+    788
+   ],
+   "style": 0,
+   "subtitle": "岩层 · 高差 · 雪地",
+   "thumb": "highland_2026_pixel.png",
+   "pixel": true
+  },
+  {
+   "cells": 2304,
+   "file": "highland_2026_painted.webp",
+   "grid": "方形",
+   "preset": "高原大陆",
+   "projection": "等角",
+   "seed": 2026,
+   "size": [
+    1536,
+    788
+   ],
+   "style": 1,
+   "subtitle": "岩层 · 高差 · 雪地",
+   "thumb": "highland_2026_painted_thumb.webp",
+   "pixel": false
+  },
+  {
+   "cells": 2304,
+   "file": "dungeon_20261017_pixel.png",
+   "grid": "方形",
+   "preset": "石砖地牢",
+   "projection": "俯视",
+   "seed": 20261017,
+   "size": [
+    1536,
+    1536
+   ],
+   "style": 0,
+   "subtitle": "房间 · 回路 · 走廊",
+   "thumb": "dungeon_20261017_pixel.png",
+   "pixel": true
+  },
+  {
+   "cells": 2304,
+   "file": "dungeon_20261017_painted.webp",
+   "grid": "方形",
+   "preset": "石砖地牢",
+   "projection": "俯视",
+   "seed": 20261017,
+   "size": [
+    1536,
+    1536
+   ],
+   "style": 1,
+   "subtitle": "房间 · 回路 · 走廊",
+   "thumb": "dungeon_20261017_painted_thumb.webp",
+   "pixel": false
+  },
+  {
+   "cells": 2304,
+   "file": "dungeon_7_pixel.png",
+   "grid": "方形",
+   "preset": "石砖地牢",
+   "projection": "俯视",
+   "seed": 7,
+   "size": [
+    1536,
+    1536
+   ],
+   "style": 0,
+   "subtitle": "房间 · 回路 · 走廊",
+   "thumb": "dungeon_7_pixel.png",
+   "pixel": true
+  },
+  {
+   "cells": 2304,
+   "file": "dungeon_7_painted.webp",
+   "grid": "方形",
+   "preset": "石砖地牢",
+   "projection": "俯视",
+   "seed": 7,
+   "size": [
+    1536,
+    1536
+   ],
+   "style": 1,
+   "subtitle": "房间 · 回路 · 走廊",
+   "thumb": "dungeon_7_painted_thumb.webp",
+   "pixel": false
+  },
+  {
+   "cells": 2304,
+   "file": "dungeon_2026_pixel.png",
+   "grid": "方形",
+   "preset": "石砖地牢",
+   "projection": "俯视",
+   "seed": 2026,
+   "size": [
+    1536,
+    1536
+   ],
+   "style": 0,
+   "subtitle": "房间 · 回路 · 走廊",
+   "thumb": "dungeon_2026_pixel.png",
+   "pixel": true
+  },
+  {
+   "cells": 2304,
+   "file": "dungeon_2026_painted.webp",
+   "grid": "方形",
+   "preset": "石砖地牢",
+   "projection": "俯视",
+   "seed": 2026,
+   "size": [
+    1536,
+    1536
+   ],
+   "style": 1,
+   "subtitle": "房间 · 回路 · 走廊",
+   "thumb": "dungeon_2026_painted_thumb.webp",
+   "pixel": false
+  },
+  {
+   "cells": 2304,
+   "file": "cave_20261017_pixel.png",
+   "grid": "方形",
+   "preset": "天然洞穴",
+   "projection": "俯视",
+   "seed": 20261017,
+   "size": [
+    1536,
+    1536
+   ],
+   "style": 0,
+   "subtitle": "洞室 · 随机通道",
+   "thumb": "cave_20261017_pixel.png",
+   "pixel": true
+  },
+  {
+   "cells": 2304,
+   "file": "cave_20261017_painted.webp",
+   "grid": "方形",
+   "preset": "天然洞穴",
+   "projection": "俯视",
+   "seed": 20261017,
+   "size": [
+    1536,
+    1536
+   ],
+   "style": 1,
+   "subtitle": "洞室 · 随机通道",
+   "thumb": "cave_20261017_painted_thumb.webp",
+   "pixel": false
+  },
+  {
+   "cells": 2304,
+   "file": "cave_7_pixel.png",
+   "grid": "方形",
+   "preset": "天然洞穴",
+   "projection": "俯视",
+   "seed": 7,
+   "size": [
+    1536,
+    1536
+   ],
+   "style": 0,
+   "subtitle": "洞室 · 随机通道",
+   "thumb": "cave_7_pixel.png",
+   "pixel": true
+  },
+  {
+   "cells": 2304,
+   "file": "cave_7_painted.webp",
+   "grid": "方形",
+   "preset": "天然洞穴",
+   "projection": "俯视",
+   "seed": 7,
+   "size": [
+    1536,
+    1536
+   ],
+   "style": 1,
+   "subtitle": "洞室 · 随机通道",
+   "thumb": "cave_7_painted_thumb.webp",
+   "pixel": false
+  },
+  {
+   "cells": 2304,
+   "file": "cave_2026_pixel.png",
+   "grid": "方形",
+   "preset": "天然洞穴",
+   "projection": "俯视",
+   "seed": 2026,
+   "size": [
+    1536,
+    1536
+   ],
+   "style": 0,
+   "subtitle": "洞室 · 随机通道",
+   "thumb": "cave_2026_pixel.png",
+   "pixel": true
+  },
+  {
+   "cells": 2304,
+   "file": "cave_2026_painted.webp",
+   "grid": "方形",
+   "preset": "天然洞穴",
+   "projection": "俯视",
+   "seed": 2026,
+   "size": [
+    1536,
+    1536
+   ],
+   "style": 1,
+   "subtitle": "洞室 · 随机通道",
+   "thumb": "cave_2026_painted_thumb.webp",
+   "pixel": false
+  },
+  {
+   "cells": 2304,
+   "file": "hex_islands_20261017_pixel.png",
+   "grid": "六角",
+   "preset": "六角群岛",
+   "projection": "等角",
+   "seed": 20261017,
+   "size": [
+    2002,
+    588
+   ],
+   "style": 0,
+   "subtitle": "六角柱 · 等角地块",
+   "thumb": "hex_islands_20261017_pixel.png",
+   "pixel": true
+  },
+  {
+   "cells": 2304,
+   "file": "hex_islands_20261017_painted.webp",
+   "grid": "六角",
+   "preset": "六角群岛",
+   "projection": "等角",
+   "seed": 20261017,
+   "size": [
+    2002,
+    588
+   ],
+   "style": 1,
+   "subtitle": "六角柱 · 等角地块",
+   "thumb": "hex_islands_20261017_painted_thumb.webp",
+   "pixel": false
+  },
+  {
+   "cells": 2304,
+   "file": "hex_islands_7_pixel.png",
+   "grid": "六角",
+   "preset": "六角群岛",
+   "projection": "等角",
+   "seed": 7,
+   "size": [
+    2002,
+    588
+   ],
+   "style": 0,
+   "subtitle": "六角柱 · 等角地块",
+   "thumb": "hex_islands_7_pixel.png",
+   "pixel": true
+  },
+  {
+   "cells": 2304,
+   "file": "hex_islands_7_painted.webp",
+   "grid": "六角",
+   "preset": "六角群岛",
+   "projection": "等角",
+   "seed": 7,
+   "size": [
+    2002,
+    588
+   ],
+   "style": 1,
+   "subtitle": "六角柱 · 等角地块",
+   "thumb": "hex_islands_7_painted_thumb.webp",
+   "pixel": false
+  },
+  {
+   "cells": 2304,
+   "file": "hex_islands_2026_pixel.png",
+   "grid": "六角",
+   "preset": "六角群岛",
+   "projection": "等角",
+   "seed": 2026,
+   "size": [
+    2002,
+    588
+   ],
+   "style": 0,
+   "subtitle": "六角柱 · 等角地块",
+   "thumb": "hex_islands_2026_pixel.png",
+   "pixel": true
+  },
+  {
+   "cells": 2304,
+   "file": "hex_islands_2026_painted.webp",
+   "grid": "六角",
+   "preset": "六角群岛",
+   "projection": "等角",
+   "seed": 2026,
+   "size": [
+    2002,
+    588
+   ],
+   "style": 1,
+   "subtitle": "六角柱 · 等角地块",
+   "thumb": "hex_islands_2026_painted_thumb.webp",
+   "pixel": false
+  },
+  {
+   "cells": 2304,
+   "file": "hex_dungeon_20261017_pixel.png",
+   "grid": "六角",
+   "preset": "六角地牢",
+   "projection": "等角",
+   "seed": 20261017,
+   "size": [
+    2002,
+    596
+   ],
+   "style": 0,
+   "subtitle": "六边形房间 · 走廊",
+   "thumb": "hex_dungeon_20261017_pixel.png",
+   "pixel": true
+  },
+  {
+   "cells": 2304,
+   "file": "hex_dungeon_20261017_painted.webp",
+   "grid": "六角",
+   "preset": "六角地牢",
+   "projection": "等角",
+   "seed": 20261017,
+   "size": [
+    2002,
+    596
+   ],
+   "style": 1,
+   "subtitle": "六边形房间 · 走廊",
+   "thumb": "hex_dungeon_20261017_painted_thumb.webp",
+   "pixel": false
+  },
+  {
+   "cells": 2304,
+   "file": "hex_dungeon_7_pixel.png",
+   "grid": "六角",
+   "preset": "六角地牢",
+   "projection": "等角",
+   "seed": 7,
+   "size": [
+    2002,
+    596
+   ],
+   "style": 0,
+   "subtitle": "六边形房间 · 走廊",
+   "thumb": "hex_dungeon_7_pixel.png",
+   "pixel": true
+  },
+  {
+   "cells": 2304,
+   "file": "hex_dungeon_7_painted.webp",
+   "grid": "六角",
+   "preset": "六角地牢",
+   "projection": "等角",
+   "seed": 7,
+   "size": [
+    2002,
+    596
+   ],
+   "style": 1,
+   "subtitle": "六边形房间 · 走廊",
+   "thumb": "hex_dungeon_7_painted_thumb.webp",
+   "pixel": false
+  },
+  {
+   "cells": 2304,
+   "file": "hex_dungeon_2026_pixel.png",
+   "grid": "六角",
+   "preset": "六角地牢",
+   "projection": "等角",
+   "seed": 2026,
+   "size": [
+    2002,
+    596
+   ],
+   "style": 0,
+   "subtitle": "六边形房间 · 走廊",
+   "thumb": "hex_dungeon_2026_pixel.png",
+   "pixel": true
+  },
+  {
+   "cells": 2304,
+   "file": "hex_dungeon_2026_painted.webp",
+   "grid": "六角",
+   "preset": "六角地牢",
+   "projection": "等角",
+   "seed": 2026,
+   "size": [
+    2002,
+    596
+   ],
+   "style": 1,
+   "subtitle": "六边形房间 · 走廊",
+   "thumb": "hex_dungeon_2026_painted_thumb.webp",
+   "pixel": false
+  }
+ ],
+ "objects": [
+  {
+   "id": 1,
+   "name": "树木",
+   "pixel": "1_pixel.png",
+   "painted": "1_painted.png"
+  },
+  {
+   "id": 2,
+   "name": "石头",
+   "pixel": "2_pixel.png",
+   "painted": "2_painted.png"
+  },
+  {
+   "id": 3,
+   "name": "木箱",
+   "pixel": "3_pixel.png",
+   "painted": "3_painted.png"
+  },
+  {
+   "id": 4,
+   "name": "蘑菇群",
+   "pixel": "4_pixel.png",
+   "painted": "4_painted.png"
+  },
+  {
+   "id": 5,
+   "name": "棕榈树",
+   "pixel": "5_pixel.png",
+   "painted": "5_painted.png"
+  },
+  {
+   "id": 6,
+   "name": "灯塔",
+   "pixel": "6_pixel.png",
+   "painted": "6_painted.png"
+  }
+ ],
+ "terrains": [
+  {
+   "files": {
+    "0_pixel_square": "0_pixel_square.png",
+    "0_pixel_hex_pointy": "0_pixel_hex_pointy.png",
+    "0_pixel_hex_flat": "0_pixel_hex_flat.png",
+    "0_pixel_seed42": "0_pixel_seed42.png",
+    "0_pixel_seed1337": "0_pixel_seed1337.png",
+    "0_pixel_seed90210": "0_pixel_seed90210.png",
+    "0_painted_square": "0_painted_square.png",
+    "0_painted_hex_pointy": "0_painted_hex_pointy.png",
+    "0_painted_hex_flat": "0_painted_hex_flat.png",
+    "0_painted_seed42": "0_painted_seed42.png",
+    "0_painted_seed1337": "0_painted_seed1337.png",
+    "0_painted_seed90210": "0_painted_seed90210.png"
+   },
+   "id": 0,
+   "name": "水域"
+  },
+  {
+   "files": {
+    "1_pixel_square": "1_pixel_square.png",
+    "1_pixel_hex_pointy": "1_pixel_hex_pointy.png",
+    "1_pixel_hex_flat": "1_pixel_hex_flat.png",
+    "1_pixel_seed42": "1_pixel_seed42.png",
+    "1_pixel_seed1337": "1_pixel_seed1337.png",
+    "1_pixel_seed90210": "1_pixel_seed90210.png",
+    "1_painted_square": "1_painted_square.png",
+    "1_painted_hex_pointy": "1_painted_hex_pointy.png",
+    "1_painted_hex_flat": "1_painted_hex_flat.png",
+    "1_painted_seed42": "1_painted_seed42.png",
+    "1_painted_seed1337": "1_painted_seed1337.png",
+    "1_painted_seed90210": "1_painted_seed90210.png"
+   },
+   "id": 1,
+   "name": "沙地"
+  },
+  {
+   "files": {
+    "2_pixel_square": "2_pixel_square.png",
+    "2_pixel_hex_pointy": "2_pixel_hex_pointy.png",
+    "2_pixel_hex_flat": "2_pixel_hex_flat.png",
+    "2_pixel_seed42": "2_pixel_seed42.png",
+    "2_pixel_seed1337": "2_pixel_seed1337.png",
+    "2_pixel_seed90210": "2_pixel_seed90210.png",
+    "2_painted_square": "2_painted_square.png",
+    "2_painted_hex_pointy": "2_painted_hex_pointy.png",
+    "2_painted_hex_flat": "2_painted_hex_flat.png",
+    "2_painted_seed42": "2_painted_seed42.png",
+    "2_painted_seed1337": "2_painted_seed1337.png",
+    "2_painted_seed90210": "2_painted_seed90210.png"
+   },
+   "id": 2,
+   "name": "草地"
+  },
+  {
+   "files": {
+    "3_pixel_square": "3_pixel_square.png",
+    "3_pixel_hex_pointy": "3_pixel_hex_pointy.png",
+    "3_pixel_hex_flat": "3_pixel_hex_flat.png",
+    "3_pixel_seed42": "3_pixel_seed42.png",
+    "3_pixel_seed1337": "3_pixel_seed1337.png",
+    "3_pixel_seed90210": "3_pixel_seed90210.png",
+    "3_painted_square": "3_painted_square.png",
+    "3_painted_hex_pointy": "3_painted_hex_pointy.png",
+    "3_painted_hex_flat": "3_painted_hex_flat.png",
+    "3_painted_seed42": "3_painted_seed42.png",
+    "3_painted_seed1337": "3_painted_seed1337.png",
+    "3_painted_seed90210": "3_painted_seed90210.png"
+   },
+   "id": 3,
+   "name": "泥地"
+  },
+  {
+   "files": {
+    "4_pixel_square": "4_pixel_square.png",
+    "4_pixel_hex_pointy": "4_pixel_hex_pointy.png",
+    "4_pixel_hex_flat": "4_pixel_hex_flat.png",
+    "4_pixel_seed42": "4_pixel_seed42.png",
+    "4_pixel_seed1337": "4_pixel_seed1337.png",
+    "4_pixel_seed90210": "4_pixel_seed90210.png",
+    "4_painted_square": "4_painted_square.png",
+    "4_painted_hex_pointy": "4_painted_hex_pointy.png",
+    "4_painted_hex_flat": "4_painted_hex_flat.png",
+    "4_painted_seed42": "4_painted_seed42.png",
+    "4_painted_seed1337": "4_painted_seed1337.png",
+    "4_painted_seed90210": "4_painted_seed90210.png"
+   },
+   "id": 4,
+   "name": "岩石"
+  },
+  {
+   "files": {
+    "5_pixel_square": "5_pixel_square.png",
+    "5_pixel_hex_pointy": "5_pixel_hex_pointy.png",
+    "5_pixel_hex_flat": "5_pixel_hex_flat.png",
+    "5_pixel_seed42": "5_pixel_seed42.png",
+    "5_pixel_seed1337": "5_pixel_seed1337.png",
+    "5_pixel_seed90210": "5_pixel_seed90210.png",
+    "5_painted_square": "5_painted_square.png",
+    "5_painted_hex_pointy": "5_painted_hex_pointy.png",
+    "5_painted_hex_flat": "5_painted_hex_flat.png",
+    "5_painted_seed42": "5_painted_seed42.png",
+    "5_painted_seed1337": "5_painted_seed1337.png",
+    "5_painted_seed90210": "5_painted_seed90210.png"
+   },
+   "id": 5,
+   "name": "雪地"
+  },
+  {
+   "files": {
+    "6_pixel_square": "6_pixel_square.png",
+    "6_pixel_hex_pointy": "6_pixel_hex_pointy.png",
+    "6_pixel_hex_flat": "6_pixel_hex_flat.png",
+    "6_pixel_seed42": "6_pixel_seed42.png",
+    "6_pixel_seed1337": "6_pixel_seed1337.png",
+    "6_pixel_seed90210": "6_pixel_seed90210.png",
+    "6_painted_square": "6_painted_square.png",
+    "6_painted_hex_pointy": "6_painted_hex_pointy.png",
+    "6_painted_hex_flat": "6_painted_hex_flat.png",
+    "6_painted_seed42": "6_painted_seed42.png",
+    "6_painted_seed1337": "6_painted_seed1337.png",
+    "6_painted_seed90210": "6_painted_seed90210.png"
+   },
+   "id": 6,
+   "name": "墙体"
+  },
+  {
+   "files": {
+    "7_pixel_square": "7_pixel_square.png",
+    "7_pixel_hex_pointy": "7_pixel_hex_pointy.png",
+    "7_pixel_hex_flat": "7_pixel_hex_flat.png",
+    "7_pixel_seed42": "7_pixel_seed42.png",
+    "7_pixel_seed1337": "7_pixel_seed1337.png",
+    "7_pixel_seed90210": "7_pixel_seed90210.png",
+    "7_painted_square": "7_painted_square.png",
+    "7_painted_hex_pointy": "7_painted_hex_pointy.png",
+    "7_painted_hex_flat": "7_painted_hex_flat.png",
+    "7_painted_seed42": "7_painted_seed42.png",
+    "7_painted_seed1337": "7_painted_seed1337.png",
+    "7_painted_seed90210": "7_painted_seed90210.png"
+   },
+   "id": 7,
+   "name": "地板"
+  }
+ ]
+}

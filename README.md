@@ -1,6 +1,6 @@
 # Jeff Map Studio
 
-**[项目网站](https://jeffstudio-dev.github.io/jeff-map-studio/)** · Godot 4.7.2 的地图生成与制作插件。支持自然地形、地牢、洞穴，方形／六角网格，俯视／等角显示，2.5D 高低地块，手绘与区域锁定，以及程序化纹理和图集绑定。
+**[成品画廊与在线试做](https://jeffstudio-dev.github.io/jeff-map-studio/)** · Godot 4.7.2 的地图生成与制作插件。支持自然地形、地牢、洞穴，方形／六角网格，俯视／等角显示，2.5D 高低地块，手绘与区域锁定，以及程序化纹理和图集绑定。
 
 ## 开始使用
 
@@ -26,3 +26,15 @@
 代码、图标和程序化示例素材采用 MIT 许可。高度为视觉效果，首版不包含角色寻路或多层桥洞。
 
 ![Godot 编辑器中的 Map Studio](addons/jeff_map_studio/docs/images/editor-1.1.png)
+
+## 网站与网页版
+
+`docs/` 是 GitHub Pages 网站：成品地图画廊、地块与物品参考图，以及浏览器里运行的 Map Studio（`docs/play/`）。全部在后台生成，不打开窗口：
+
+```sh
+godot --headless --path . --script tools/render_site_gallery.gd   # 渲染地图、地块、物品
+python3 tools/build_site.py                                       # 整理为 docs/gallery
+python3 tools/build_web.py --godot /path/to/godot                 # 导出网页版到 docs/play
+```
+
+网页版是单线程构建：生成和烘焙在主线程运行（`MapWork`），默认 64×64 地图，并只在网页上使用随附的 GNU Unifont（OFL 1.1，见 `demo/fonts/`）显示中文。若未安装与编辑器同版本的导出模板，可用 `--template` 指定 `web_nothreads_release.zip`。

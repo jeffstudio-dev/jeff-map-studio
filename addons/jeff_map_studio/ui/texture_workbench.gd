@@ -39,7 +39,7 @@ var _region := Vector2i(64, 64)
 var _margin := Vector2i.ZERO
 var _separation := Vector2i.ZERO
 var _image: Image
-var _thread: Thread
+var _thread: MapWork
 var _dirty: bool = true
 var _syncing: bool = false
 
@@ -200,7 +200,7 @@ func _process(_delta: float) -> void:
 		var snapshot := recipe.duplicate(true) as TextureRecipe
 		var depth := profile.base_thickness * 128 / profile.tile_size
 		var landmark := preview_decoration
-		_thread = Thread.new()
+		_thread = MapWork.new()
 		var result := _thread.start(func() -> Dictionary:
 			var blocks: Array[Image] = []
 			for shape in 3:

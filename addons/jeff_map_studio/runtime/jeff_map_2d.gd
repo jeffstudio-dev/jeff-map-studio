@@ -38,7 +38,7 @@ func generate(settings: MapProfile = null) -> void:
 	var previous := map_data.copy() if map_data != null else null
 	var job := MapGenerationJob.new()
 	_active_job = job
-	var thread := Thread.new()
+	var thread := MapWork.new()
 	var token := _serial
 	var result := thread.start(func() -> MapData: return MapGenerator.generate(snapshot, previous, job))
 	if result != OK:
@@ -89,7 +89,7 @@ func _process(_delta: float) -> void:
 		generation_progress.emit(float(status[0]) * 0.5, status[1])
 	for i in range(_tasks.size() - 1, -1, -1):
 		var task := _tasks[i]
-		var thread: Thread = task.thread
+		var thread: MapWork = task.thread
 		if thread.is_alive():
 			continue
 		var result: Variant = thread.wait_to_finish()
@@ -129,7 +129,7 @@ func _prepare_render(data: MapData, token: int) -> void:
 		return
 	var job := MapGenerationJob.new()
 	_active_job = job
-	var thread := Thread.new()
+	var thread := MapWork.new()
 	var library_copy := library.duplicate(true) as TileLibrary if library != null else null
 	var result := thread.start(func() -> Dictionary: return MapAtlasBuilder.prepare_images(data.profile, library_copy, job))
 	if result != OK:
@@ -240,7 +240,7 @@ func _exit_tree() -> void:
 	_cancel_work()
 	_serial += 1
 	for task in _tasks:
-		var thread: Thread = task.thread
+		var thread: MapWork = task.thread
 		if thread.is_started():
 			thread.wait_to_finish()
 	_tasks.clear()
