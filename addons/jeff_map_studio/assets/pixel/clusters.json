@@ -1,0 +1,207 @@
+{ "frames": [
+   {
+    "filename": "clusters 0.aseprite",
+    "frame": { "x": 0, "y": 0, "w": 5, "h": 3 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 5, "h": 3 },
+    "sourceSize": { "w": 5, "h": 3 },
+    "duration": 100
+   },
+   {
+    "filename": "clusters 1.aseprite",
+    "frame": { "x": 5, "y": 0, "w": 5, "h": 3 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 5, "h": 3 },
+    "sourceSize": { "w": 5, "h": 3 },
+    "duration": 100
+   },
+   {
+    "filename": "clusters 2.aseprite",
+    "frame": { "x": 10, "y": 0, "w": 5, "h": 3 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 5, "h": 3 },
+    "sourceSize": { "w": 5, "h": 3 },
+    "duration": 100
+   },
+   {
+    "filename": "clusters 3.aseprite",
+    "frame": { "x": 15, "y": 0, "w": 5, "h": 3 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 5, "h": 3 },
+    "sourceSize": { "w": 5, "h": 3 },
+    "duration": 100
+   },
+   {
+    "filename": "clusters 4.aseprite",
+    "frame": { "x": 20, "y": 0, "w": 5, "h": 3 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 5, "h": 3 },
+    "sourceSize": { "w": 5, "h": 3 },
+    "duration": 100
+   },
+   {
+    "filename": "clusters 5.aseprite",
+    "frame": { "x": 25, "y": 0, "w": 5, "h": 3 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 5, "h": 3 },
+    "sourceSize": { "w": 5, "h": 3 },
+    "duration": 100
+   },
+   {
+    "filename": "clusters 6.aseprite",
+    "frame": { "x": 30, "y": 0, "w": 5, "h": 3 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 5, "h": 3 },
+    "sourceSize": { "w": 5, "h": 3 },
+    "duration": 100
+   },
+   {
+    "filename": "clusters 7.aseprite",
+    "frame": { "x": 35, "y": 0, "w": 5, "h": 3 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 5, "h": 3 },
+    "sourceSize": { "w": 5, "h": 3 },
+    "duration": 100
+   },
+   {
+    "filename": "clusters 8.aseprite",
+    "frame": { "x": 40, "y": 0, "w": 5, "h": 3 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 5, "h": 3 },
+    "sourceSize": { "w": 5, "h": 3 },
+    "duration": 100
+   },
+   {
+    "filename": "clusters 9.aseprite",
+    "frame": { "x": 45, "y": 0, "w": 5, "h": 3 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 5, "h": 3 },
+    "sourceSize": { "w": 5, "h": 3 },
+    "duration": 100
+   },
+   {
+    "filename": "clusters 10.aseprite",
+    "frame": { "x": 50, "y": 0, "w": 5, "h": 3 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 5, "h": 3 },
+    "sourceSize": { "w": 5, "h": 3 },
+    "duration": 100
+   },
+   {
+    "filename": "clusters 11.aseprite",
+    "frame": { "x": 55, "y": 0, "w": 5, "h": 3 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 5, "h": 3 },
+    "sourceSize": { "w": 5, "h": 3 },
+    "duration": 100
+   },
+   {
+    "filename": "clusters 12.aseprite",
+    "frame": { "x": 60, "y": 0, "w": 5, "h": 3 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 5, "h": 3 },
+    "sourceSize": { "w": 5, "h": 3 },
+    "duration": 100
+   },
+   {
+    "filename": "clusters 13.aseprite",
+    "frame": { "x": 65, "y": 0, "w": 5, "h": 3 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 5, "h": 3 },
+    "sourceSize": { "w": 5, "h": 3 },
+    "duration": 100
+   },
+   {
+    "filename": "clusters 14.aseprite",
+    "frame": { "x": 70, "y": 0, "w": 5, "h": 3 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 5, "h": 3 },
+    "sourceSize": { "w": 5, "h": 3 },
+    "duration": 100
+   },
+   {
+    "filename": "clusters 15.aseprite",
+    "frame": { "x": 75, "y": 0, "w": 5, "h": 3 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 5, "h": 3 },
+    "sourceSize": { "w": 5, "h": 3 },
+    "duration": 100
+   },
+   {
+    "filename": "clusters 16.aseprite",
+    "frame": { "x": 80, "y": 0, "w": 5, "h": 3 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 5, "h": 3 },
+    "sourceSize": { "w": 5, "h": 3 },
+    "duration": 100
+   },
+   {
+    "filename": "clusters 17.aseprite",
+    "frame": { "x": 85, "y": 0, "w": 5, "h": 3 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 5, "h": 3 },
+    "sourceSize": { "w": 5, "h": 3 },
+    "duration": 100
+   },
+   {
+    "filename": "clusters 18.aseprite",
+    "frame": { "x": 90, "y": 0, "w": 5, "h": 3 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 5, "h": 3 },
+    "sourceSize": { "w": 5, "h": 3 },
+    "duration": 100
+   },
+   {
+    "filename": "clusters 19.aseprite",
+    "frame": { "x": 95, "y": 0, "w": 5, "h": 3 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 5, "h": 3 },
+    "sourceSize": { "w": 5, "h": 3 },
+    "duration": 100
+   },
+   {
+    "filename": "clusters 20.aseprite",
+    "frame": { "x": 100, "y": 0, "w": 5, "h": 3 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 5, "h": 3 },
+    "sourceSize": { "w": 5, "h": 3 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.x-56757b5-dev",
+  "image": "clusters.png",
+  "format": "RGBA8888",
+  "size": { "w": 105, "h": 3 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "grass_tufts", "from": 0, "to": 5, "direction": "forward", "color": "#000000ff" },
+   { "name": "grass_flowers", "from": 6, "to": 9, "direction": "forward", "color": "#000000ff" },
+   { "name": "sand_pebbles", "from": 10, "to": 13, "direction": "forward", "color": "#000000ff" },
+   { "name": "water_glints", "from": 14, "to": 18, "direction": "forward", "color": "#000000ff" },
+   { "name": "rock_chips", "from": 19, "to": 20, "direction": "forward", "color": "#000000ff" }
+  ]
+ }
+}

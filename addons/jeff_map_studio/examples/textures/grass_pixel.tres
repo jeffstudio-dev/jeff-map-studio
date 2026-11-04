@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="TextureRecipe" format=3]
+
+[ext_resource type="Script" path="res://addons/jeff_map_studio/core/texture_recipe.gd" id="1_42p7w"]
+
+[resource]
+script = ExtResource("1_42p7w")
+base_color = Color(0.53333336, 0.6745098, 0.41568628, 1)
+detail_color = Color(0.77254903, 0.8352941, 0.54901963, 1)
+grain = 0.6
+illustrated = true
+side_color = Color(0.7019608, 0.5137255, 0.38039216, 1)
+side_detail_color = Color(0.8, 0.7058824, 0.54509807, 1)

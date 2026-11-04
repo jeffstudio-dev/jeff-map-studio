@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://demo/runtime_demo.gd" id="1"]
+[ext_resource type="Script" path="res://addons/jeff_map_studio/runtime/jeff_map_2d.gd" id="2"]
+
+[node name="RuntimeMapDemo" type="Node2D"]
+script = ExtResource("1")
+
+[node name="Map" type="Node2D" parent="."]
+script = ExtResource("2")
+
+[node name="Camera2D" type="Camera2D" parent="."]

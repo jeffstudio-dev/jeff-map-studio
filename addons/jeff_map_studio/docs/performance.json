@@ -1,0 +1,25 @@
+{
+	"engine": "4.7.2-stable (steam)",
+	"failures": [],
+	"renderer": "Apple M4",
+	"results": [
+		{
+			"cells": 262144,
+			"frames": 348,
+			"grid": "square",
+			"max_frame_interval_ms": 202.118,
+			"peak_static_memory_bytes": 195407016,
+			"render_cancel_ms": 102.728,
+			"wall_time_ms": 4892.265
+		},
+		{
+			"cells": 262144,
+			"frames": 283,
+			"grid": "hex",
+			"max_frame_interval_ms": 255.416,
+			"peak_static_memory_bytes": 282180552,
+			"render_cancel_ms": 83.076,
+			"wall_time_ms": 10784.576
+		}
+	]
+}

@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jeff Map Studio · Godot 地图生成插件</title>
+<meta name="description" content="Jeff Map Studio：Godot 4.7 地图生成与制作插件。自然地形、地牢、洞穴；方形与六角网格；俯视与等角 2.5D；像素风与手绘风；种子随机、手绘与锁定。">
+<meta property="og:title" content="Jeff Map Studio · Godot 地图生成插件">
+<meta property="og:description" content="Procedural tile maps for Godot 4.7 — seeds, square & hex grids, isometric 2.5D blocks, pixel and hand-painted styles.">
+<meta property="og:image" content="https://jeffstudio-dev.github.io/jeff-map-studio/images/island-pixel.png">
+<link rel="icon" href="images/icon.svg" type="image/svg+xml">
+<style>
+:root {
+  --bg: #f3f0e6;
+  --surface: #fffdf7;
+  --surface-2: #e9e4d6;
+  --text: #1d2a2f;
+  --muted: #5a686c;
+  --line: #d8d1bf;
+  --accent: #2f7d45;
+  --accent-ink: #ffffff;
+  --sand: #c98a3f;
+  --water: #1f8f8a;
+  --stage: #16232b;
+  --shadow: 0 1px 2px rgba(29, 42, 47, 0.06), 0 8px 24px rgba(29, 42, 47, 0.08);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #10181d;
+    --surface: #17232a;
+    --surface-2: #1f2e36;
+    --text: #e6ece8;
+    --muted: #9db0b3;
+    --line: #2b3d46;
+    --accent: #7cc35a;
+    --accent-ink: #10181d;
+    --sand: #e0a46c;
+    --water: #5fc4b4;
+    --stage: #16232b;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 30px rgba(0, 0, 0, 0.35);
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #10181d;
+  --surface: #17232a;
+  --surface-2: #1f2e36;
+  --text: #e6ece8;
+  --muted: #9db0b3;
+  --line: #2b3d46;
+  --accent: #7cc35a;
+  --accent-ink: #10181d;
+  --sand: #e0a46c;
+  --water: #5fc4b4;
+  --stage: #16232b;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", "Segoe UI", sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+img { max-width: 100%; height: auto; display: block; }
+.pixel { image-rendering: pixelated; image-rendering: crisp-edges; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 16px; }
+
+header.top {
+  position: sticky; top: 0; z-index: 10;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+header.top .wrap { display: flex; align-items: center; gap: 16px; height: 60px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--text); text-decoration: none; white-space: nowrap; }
+.brand img { width: 30px; height: 30px; }
+nav.links { display: flex; gap: 4px; margin-left: auto; overflow-x: auto; }
+nav.links a { color: var(--muted); text-decoration: none; padding: 6px 10px; border-radius: 8px; font-size: 15px; white-space: nowrap; }
+nav.links a:hover { color: var(--text); background: var(--surface-2); }
+.theme {
+  border: 1px solid var(--line); background: var(--surface); color: var(--text);
+  border-radius: 8px; width: 36px; height: 36px; cursor: pointer; font-size: 16px; flex: none;
+}
+
+.hero { padding: 64px 0 40px; }
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 40px; align-items: center; }
+.eyebrow { font-size: 14px; letter-spacing: 0.08em; color: var(--accent); font-weight: 700; margin: 0 0 12px; }
+h1 { font-size: clamp(34px, 5vw, 52px); line-height: 1.15; margin: 0 0 16px; letter-spacing: -0.01em; }
+.lead { font-size: 18px; color: var(--muted); margin: 0 0 8px; }
+.lead-en { font-size: 15px; color: var(--muted); margin: 0 0 28px; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.button {
+  display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 10px;
+  font-weight: 650; text-decoration: none; border: 1px solid var(--line); color: var(--text); background: var(--surface);
+}
+.button.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.button:hover { filter: brightness(1.05); }
+.stage {
+  background: var(--stage); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow);
+  border: 1px solid color-mix(in srgb, var(--line) 60%, transparent);
+}
+.meta-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+.chip { font-size: 13px; padding: 3px 10px; border-radius: 999px; background: var(--surface-2); color: var(--muted); }
+
+section { padding: 56px 0; scroll-margin-top: 64px; }
+section.alt { background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+h2 { font-size: clamp(26px, 3.4vw, 34px); margin: 0 0 8px; line-height: 1.25; }
+.section-lead { color: var(--muted); margin: 0 0 32px; max-width: 760px; }
+
+.features { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px; }
+section.alt .card { background: var(--bg); }
+.card h3 { font-size: 17px; margin: 0 0 6px; }
+.card p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.65; }
+.swatch { width: 28px; height: 8px; border-radius: 3px; margin-bottom: 14px; }
+
+.toggle { display: inline-flex; background: var(--surface-2); border-radius: 10px; padding: 4px; margin-bottom: 16px; }
+.toggle button {
+  border: 0; background: transparent; color: var(--muted); font: inherit; font-weight: 600;
+  padding: 7px 16px; border-radius: 8px; cursor: pointer;
+}
+.toggle button[aria-pressed="true"] { background: var(--surface); color: var(--text); box-shadow: var(--shadow); }
+.style-view figure { margin: 0; }
+.style-view [hidden] { display: none; }
+
+.gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+figure { margin: 0; }
+figcaption { font-size: 14px; color: var(--muted); padding: 10px 2px 0; }
+.stage img { width: 100%; }
+.gallery .stage { aspect-ratio: 16 / 10; display: grid; place-items: center; }
+.gallery .stage img { width: 100%; height: 100%; object-fit: contain; }
+.wide { max-width: 900px; margin: 20px auto 0; }
+
+.pipeline { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-bottom: 28px; }
+.step-no { font-size: 13px; font-weight: 700; color: var(--accent); letter-spacing: 0.06em; }
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+
+.steps { counter-reset: step; list-style: none; padding: 0; margin: 0 0 28px; display: grid; gap: 12px; }
+.steps li { counter-increment: step; position: relative; padding-left: 44px; }
+.steps li::before {
+  content: counter(step); position: absolute; left: 0; top: 0; width: 30px; height: 30px; border-radius: 8px;
+  background: var(--surface-2); color: var(--text); font-weight: 700; display: grid; place-items: center; font-size: 14px;
+}
+pre {
+  background: var(--stage); color: #dfe8e3; border-radius: 12px; padding: 18px 20px; overflow-x: auto;
+  font-size: 14px; line-height: 1.6; margin: 0;
+}
+code { font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace; font-size: 0.92em; }
+p code, li code { background: var(--surface-2); padding: 1px 6px; border-radius: 5px; }
+.kw { color: #8fd3ff; } .ty { color: #b6e59a; } .st { color: #f3cf8c; } .cm { color: #7f949a; }
+
+.docs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.docs a {
+  display: block; padding: 16px 18px; border-radius: 12px; border: 1px solid var(--line);
+  background: var(--surface); color: var(--text); text-decoration: none;
+}
+section.alt .docs a { background: var(--bg); }
+.docs a:hover { border-color: var(--accent); }
+.docs strong { display: block; font-size: 16px; }
+.docs span { color: var(--muted); font-size: 14px; }
+
+.note { color: var(--muted); font-size: 14px; margin-top: 16px; }
+footer { padding: 36px 0 48px; color: var(--muted); font-size: 14px; border-top: 1px solid var(--line); }
+footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+
+@media (max-width: 900px) {
+  .hero .wrap { grid-template-columns: 1fr; gap: 28px; }
+  .hero { padding-top: 40px; }
+  .features { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pipeline, .docs { grid-template-columns: 1fr; }
+  .gallery, .split { grid-template-columns: 1fr; }
+  nav.links a.optional { display: none; }
+}
+@media (max-width: 600px) {
+  nav.links { display: none; }
+  .theme { margin-left: auto; }
+}
+@media (max-width: 520px) {
+  .features { grid-template-columns: 1fr; }
+  section { padding: 44px 0; }
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#"><img src="images/icon.svg" alt="" width="30" height="30">Jeff Map Studio</a>
+    <nav class="links" aria-label="页面导航">
+      <a href="#features">功能</a>
+      <a href="#styles">双风格</a>
+      <a href="#gallery" class="optional">画廊</a>
+      <a href="#pipeline" class="optional">美术管线</a>
+      <a href="#start">快速开始</a>
+      <a href="#docs" class="optional">文档</a>
+      <a href="https://github.com/jeffstudio-dev/jeff-map-studio">GitHub</a>
+    </nav>
+    <button class="theme" type="button" id="theme" aria-label="切换浅色或深色">◐</button>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">JEFF STUDIO · GODOT 4.7 插件</p>
+        <h1>用种子生成可以直接用的瓦片地图</h1>
+        <p class="lead">自然地形、地牢、洞穴一键生成；方形或六角网格，俯视或等角 2.5D，像素风与手绘风随时切换。生成后还能手绘、锁定、再生成。</p>
+        <p class="lead-en">Procedural tile maps for Godot — seeds, square &amp; hex grids, isometric height blocks, pixel and hand-painted styles.</p>
+        <div class="actions">
+          <a class="button primary" href="https://github.com/jeffstudio-dev/jeff-map-studio">在 GitHub 查看</a>
+          <a class="button" href="#start">快速开始</a>
+        </div>
+        <div class="meta-row">
+          <span class="chip">Godot 4.7.2</span>
+          <span class="chip">GDScript · 无第三方依赖</span>
+          <span class="chip">MIT 许可</span>
+        </div>
+      </div>
+      <figure class="stage">
+        <img class="pixel" src="images/island-pixel.png" width="1200" height="900" alt="像素风等角岛屿地图：沙滩、草地、岩石高地和雪顶，散布树木、蘑菇、棕榈和灯塔">
+      </figure>
+    </div>
+  </section>
+
+  <section id="features" class="alt">
+    <div class="wrap">
+      <h2>功能</h2>
+      <p class="section-lead">编辑器里有独立的 Map Studio 工作区；生成、修改、保存和导出场景都在这里完成。运行时也可以用同一套 API 在游戏里实时生成。</p>
+      <div class="features">
+        <div class="card"><div class="swatch" style="background: var(--accent)"></div><h3>三种生成器</h3><p>自然地形（海岛、沙滩、山地、雪地）、房间地牢（最小生成树 + A* 走廊）、细胞自动机洞穴，结构保证连通。</p></div>
+        <div class="card"><div class="swatch" style="background: var(--water)"></div><h3>方形与六角</h3><p>方形、尖顶六角、平顶六角三种网格，与 Godot 原生 TileMapLayer 坐标一致。</p></div>
+        <div class="card"><div class="swatch" style="background: var(--sand)"></div><h3>等角 2.5D 地块</h3><p>0–16 层高度，自动生成侧面与底座，内部被遮挡的侧面自动隐藏。也可切换为俯视。</p></div>
+        <div class="card"><div class="swatch" style="background: #b9a3e0"></div><h3>像素风 · 手绘风</h3><p>切换风格只重新渲染，不改变地图格子、手绘修改、锁定和物品位置。</p></div>
+        <div class="card"><div class="swatch" style="background: var(--accent)"></div><h3>种子与锁定</h3><p>相同种子得到相同地图。用画笔改地形、升降高度、放置物品，锁定的区域在重新生成时保留。</p></div>
+        <div class="card"><div class="swatch" style="background: var(--water)"></div><h3>程序化材质</h3><p>草地、沙土、岩石、水面、石砖可调配色、密度、尺度、像素步长，导出无缝 PNG 和单块地块图。</p></div>
+        <div class="card"><div class="swatch" style="background: var(--sand)"></div><h3>导入你的图集</h3><p>绑定 PNG 图集或 TileSet：按地形、用途、边掩码匹配瓦片，带权重的确定性随机。</p></div>
+        <div class="card"><div class="swatch" style="background: #b9a3e0"></div><h3>导出与运行时</h3><p>一键应用到当前场景（可撤销），或烘焙成独立场景；<code>JeffMap2D</code> 节点支持运行时生成和查询。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="styles">
+    <div class="wrap">
+      <h2>同一张地图，两种画风</h2>
+      <p class="section-lead">像素风在与屏幕对齐的像素网格上用代码绘制，地表、侧面和物品共用同一像素尺寸；手绘风使用配套绘制的材质与物品。切换时地图内容完全不变。</p>
+      <div class="style-view" data-group="island">
+        <div class="toggle" role="group" aria-label="选择画风">
+          <button type="button" aria-pressed="true" data-show="pixel">像素风</button>
+          <button type="button" aria-pressed="false" data-show="painted">手绘风</button>
+        </div>
+        <figure class="stage" data-style="pixel"><img class="pixel" src="images/pixel-square.png" width="1084" height="658" loading="lazy" alt="像素风方形等角小岛：草地高台、沙岸、水域与物品"></figure>
+        <figure class="stage" data-style="painted" hidden><img src="images/painted-square.png" width="1084" height="658" loading="lazy" alt="手绘风方形等角小岛：同一布局的手绘材质"></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery" class="alt">
+    <div class="wrap">
+      <h2>画廊</h2>
+      <p class="section-lead">以下图片都由插件在后台直接合成（CPU 合成预览，不是 GPU 截图）。</p>
+      <div class="gallery">
+        <figure><div class="stage"><img class="pixel" src="images/pixel-hex-pointy.png" width="1050" height="578" loading="lazy" alt="像素风尖顶六角等角地图"></div><figcaption>尖顶六角 · 等角 · 像素风</figcaption></figure>
+        <figure><div class="stage"><img src="images/painted-hex-flat.png" width="956" height="630" loading="lazy" alt="手绘风平顶六角等角地图"></div><figcaption>平顶六角 · 等角 · 手绘风</figcaption></figure>
+        <figure><div class="stage"><img class="pixel" src="images/dungeon-pixel.png" width="1200" height="720" loading="lazy" alt="像素风俯视地牢：石板地面、墙体与宝箱"></div><figcaption>房间地牢 · 俯视 · 像素风</figcaption></figure>
+        <figure><div class="stage"><img class="pixel" src="images/cave-pixel.png" width="1200" height="720" loading="lazy" alt="像素风俯视洞穴"></div><figcaption>天然洞穴 · 俯视 · 像素风</figcaption></figure>
+        <figure><div class="stage"><img src="images/island-painted.png" width="1200" height="900" loading="lazy" alt="手绘风等角岛屿地图"></div><figcaption>海岸群岛预设 · 手绘风</figcaption></figure>
+        <figure><div class="stage"><img class="pixel" src="images/pixel-tile-board.png" width="960" height="800" loading="lazy" alt="像素风单块地块：草地、沙地、水域三种形状"></div><figcaption>单块地块：方形、尖顶六角、平顶六角</figcaption></figure>
+      </div>
+      <figure style="margin-top: 20px"><div class="stage" style="padding: 8px 0"><img class="pixel" src="images/pixel-objects.png" width="1020" height="222" loading="lazy" alt="六个像素物品：橡树、符文石、宝箱、蘑菇群、棕榈树、灯塔"></div><figcaption>像素物品在 Aseprite 中绘制：橡树、符文石、宝箱、蘑菇群、棕榈树、灯塔</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="pipeline">
+    <div class="wrap">
+      <h2>美术管线：概念图 + 规范 + 代码</h2>
+      <p class="section-lead">地形外观正在迁移到“规范驱动”：美术在 Aseprite 里定色阶和图案，规范文件定规则和随机范围，代码按种子绘制。像素风草地已经完成，其余地形逐步迁移。</p>
+      <div class="pipeline">
+        <div class="card"><div class="step-no">01 · ASEPRITE</div><h3>概念图</h3><p>色阶切片、图案切片和目标样板。图案直接用真实颜色绘制，导入时自动换算成色阶，换主色会跟着变色。</p></div>
+        <div class="card"><div class="step-no">02 · .TRES</div><h3>外观规范</h3><p>可调参数的范围、四种草地“情绪”、区域大小、图案数量，都在 Godot 检查器里编辑。</p></div>
+        <div class="card"><div class="step-no">03 · GDSCRIPT</div><h3>按种子绘制</h3><p>同样的规范、参数和种子得到逐字节相同的图；任意两个变体相邻都无接缝，有自动测试保证。</p></div>
+      </div>
+      <figure><div class="stage" style="padding: 12px"><img class="pixel" src="images/grass-concept.png" width="1060" height="370" loading="lazy" alt="Aseprite 草地概念图：色阶、图案与参考样板"></div><figcaption>草地概念图（Aseprite）：左侧色阶与图案由代码读取，右侧样板用于评审</figcaption></figure>
+      <figure class="wide"><div class="stage"><img class="pixel" src="images/grass-before-after.png" width="1320" height="1450" loading="lazy" alt="大片草地改造前后对比：上为逐格随机，下为四种情绪按区域成片分布"></div><figcaption>大片草地前后对比：四种情绪按区域成片，每种另有格内子变体，减少规律重复</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="start" class="alt">
+    <div class="wrap">
+      <h2>快速开始</h2>
+      <p class="section-lead">需要 Godot 4.7.2 标准版（不需要 .NET）。</p>
+      <div class="split">
+        <div>
+          <ol class="steps">
+            <li>下载或克隆仓库，把 <code>addons/jeff_map_studio</code> 复制到你的项目中。</li>
+            <li>打开 <strong>项目设置 → 插件</strong>，启用 <strong>Jeff Map Studio</strong>。</li>
+            <li>编辑器顶部切换到 <strong>Map Studio</strong>，选择左侧预设或调整参数，点击 <strong>生成地图</strong>。</li>
+            <li>用画笔修改、锁定区域，再保存地图、导出场景，或 <strong>应用到当前场景</strong>。</li>
+          </ol>
+          <p class="note">也可以直接用 Godot 打开整个仓库：插件已在演示工程中启用，按 F5 运行独立工作区演示。</p>
+        </div>
+        <pre><code><span class="kw">extends</span> <span class="ty">Node2D</span>
+
+<span class="kw">@onready var</span> map: <span class="ty">JeffMap2D</span> = $JeffMap2D
+
+<span class="kw">func</span> _ready() -> <span class="ty">void</span>:
+    map.generation_completed.connect(_map_ready)
+    <span class="kw">var</span> settings := <span class="ty">MapProfile</span>.new()
+    settings.seed_value = 12345
+    settings.grid = <span class="ty">MapProfile</span>.Grid.HEX
+    settings.projection = <span class="ty">MapProfile</span>.ProjectionMode.ISOMETRIC
+    settings.width = 128
+    settings.height = 128
+    map.generate(settings)
+
+<span class="kw">func</span> _map_ready(data: <span class="ty">MapData</span>) -> <span class="ty">void</span>:
+    <span class="cm"># 地形、高度、物品</span>
+    print(map.get_cell(<span class="ty">Vector2i</span>(5, 5)))</code></pre>
+      </div>
+      <figure style="margin-top: 32px"><div class="stage"><img src="images/editor.png" width="1920" height="971" loading="lazy" alt="Godot 编辑器中的 Map Studio 工作区"></div><figcaption>Godot 编辑器中的 Map Studio 工作区（界面截图来自 1.1 版本，地块美术已更新）</figcaption></figure>
+    </div>
+  </section>
+
+  <section id="docs">
+    <div class="wrap">
+      <h2>文档</h2>
+      <p class="section-lead">详细说明都在仓库里，均为中文。</p>
+      <div class="docs">
+        <a href="https://github.com/jeffstudio-dev/jeff-map-studio/blob/main/addons/jeff_map_studio/README.md"><strong>使用说明与 API</strong><span>生成器、画笔、导入图集、运行时 API</span></a>
+        <a href="https://github.com/jeffstudio-dev/jeff-map-studio/blob/main/addons/jeff_map_studio/docs/STYLES.md"><strong>像素与手绘风格</strong><span>双风格、物品、规范驱动的地形</span></a>
+        <a href="https://github.com/jeffstudio-dev/jeff-map-studio/blob/main/addons/jeff_map_studio/docs/BLOCKS.md"><strong>可拼接地块</strong><span>厚度、侧面材质、单块预览</span></a>
+        <a href="https://github.com/jeffstudio-dev/jeff-map-studio/blob/main/addons/jeff_map_studio/docs/ARCHITECTURE.md"><strong>架构与维护</strong><span>模块划分、线程与资源</span></a>
+        <a href="https://github.com/jeffstudio-dev/jeff-map-studio/blob/main/design/DESIGN.md"><strong>美术管线设计稿</strong><span>概念图、规范文件、随机模型</span></a>
+        <a href="https://github.com/jeffstudio-dev/jeff-map-studio/blob/main/tests/README.md"><strong>测试</strong><span>后台测试入口与覆盖范围</span></a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© Jeff Studio · 代码、图标与程序化示例素材采用 MIT 许可</span>
+    <span><a href="https://github.com/jeffstudio-dev">Jeff Studio on GitHub</a> · <a href="https://github.com/jeffstudio-dev/jeff-map-studio/issues">反馈问题</a></span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var key = "jms-theme";
+  try {
+    var saved = localStorage.getItem(key);
+    if (saved) root.setAttribute("data-theme", saved);
+  } catch (e) {}
+  document.getElementById("theme").addEventListener("click", function () {
+    var dark = root.getAttribute("data-theme") === "dark" ||
+      (!root.getAttribute("data-theme") && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    var next = dark ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem(key, next); } catch (e) {}
+  });
+  document.querySelectorAll(".style-view").forEach(function (view) {
+    view.querySelectorAll(".toggle button").forEach(function (button) {
+      button.addEventListener("click", function () {
+        view.querySelectorAll(".toggle button").forEach(function (b) { b.setAttribute("aria-pressed", b === button ? "true" : "false"); });
+        view.querySelectorAll("[data-style]").forEach(function (f) { f.hidden = f.getAttribute("data-style") !== button.getAttribute("data-show"); });
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="MapProfile" format=3]
+
+[ext_resource type="Script" path="res://addons/jeff_map_studio/core/map_profile.gd" id="1_ykf77"]
+
+[resource]
+script = ExtResource("1_ykf77")
+grid = 1
+projection = 0
+hex_orientation = 1
+base_thickness = 16

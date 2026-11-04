@@ -1,0 +1,93 @@
+[gd_resource type="Resource" script_class="TileLibrary" format=3]
+
+[ext_resource type="Script" path="res://addons/jeff_map_studio/core/texture_recipe.gd" id="1_ihvrk"]
+[ext_resource type="Script" path="res://addons/jeff_map_studio/core/tile_rule.gd" id="2_db5je"]
+[ext_resource type="Script" path="res://addons/jeff_map_studio/core/tile_library.gd" id="3_mn8ba"]
+
+[sub_resource type="Resource" id="Resource_cycnn"]
+script = ExtResource("1_ihvrk")
+material = 3
+style = 1
+base_color = Color(0.25882354, 0.7254902, 0.7019608, 1)
+detail_color = Color(0.4811765, 0.80784315, 0.79137254, 1)
+grain = 0.6
+illustrated = true
+side_color = Color(0.14509805, 0.5529412, 0.6156863, 1)
+side_detail_color = Color(0.38431373, 0.75686276, 0.7294118, 1)
+
+[sub_resource type="Resource" id="Resource_2rcd7"]
+script = ExtResource("1_ihvrk")
+material = 1
+style = 1
+base_color = Color(0.94509804, 0.80784315, 0.5803922, 1)
+detail_color = Color(0.96156865, 0.8654902, 0.7062745, 1)
+grain = 0.6
+illustrated = true
+side_color = Color(0.84313726, 0.64705884, 0.44313726, 1)
+side_detail_color = Color(0.92941177, 0.8039216, 0.60784316, 1)
+
+[sub_resource type="Resource" id="Resource_ioe0e"]
+script = ExtResource("1_ihvrk")
+style = 1
+base_color = Color(0.53333336, 0.6745098, 0.41568628, 1)
+detail_color = Color(0.67333335, 0.7721569, 0.5909804, 1)
+grain = 0.6
+illustrated = true
+side_color = Color(0.7019608, 0.5137255, 0.38039216, 1)
+side_detail_color = Color(0.8, 0.7058824, 0.54509807, 1)
+
+[sub_resource type="Resource" id="Resource_i0ss6"]
+script = ExtResource("1_ihvrk")
+material = 1
+style = 1
+base_color = Color(0.64705884, 0.5411765, 0.40784314, 1)
+detail_color = Color(0.7529412, 0.6788236, 0.5854902, 1)
+grain = 0.6
+illustrated = true
+side_color = Color(0.84313726, 0.64705884, 0.44313726, 1)
+side_detail_color = Color(0.92941177, 0.8039216, 0.60784316, 1)
+
+[sub_resource type="Resource" id="Resource_n2yod"]
+script = ExtResource("1_ihvrk")
+material = 2
+style = 1
+base_color = Color(0.49803922, 0.5529412, 0.57254905, 1)
+detail_color = Color(0.64862746, 0.68705887, 0.7007843, 1)
+grain = 0.6
+side_color = Color(0.3372549, 0.3764706, 0.41960785, 1)
+side_detail_color = Color(0.5568628, 0.5921569, 0.5803922, 1)
+
+[sub_resource type="Resource" id="Resource_tor1i"]
+script = ExtResource("1_ihvrk")
+material = 2
+style = 1
+base_color = Color(0.83137256, 0.8784314, 0.87058824, 1)
+detail_color = Color(0.8819608, 0.914902, 0.9094118, 1)
+grain = 0.6
+side_color = Color(0.3372549, 0.3764706, 0.41960785, 1)
+side_detail_color = Color(0.5568628, 0.5921569, 0.5803922, 1)
+
+[sub_resource type="Resource" id="Resource_uo6ut"]
+script = ExtResource("1_ihvrk")
+material = 4
+style = 1
+base_color = Color(0.3764706, 0.43529412, 0.4745098, 1)
+detail_color = Color(0.56352943, 0.60470587, 0.63215685, 1)
+grain = 0.6
+side_color = Color(0.3137255, 0.3647059, 0.3882353, 1)
+side_detail_color = Color(0.50980395, 0.5647059, 0.5294118, 1)
+
+[sub_resource type="Resource" id="Resource_1lqxy"]
+script = ExtResource("1_ihvrk")
+material = 4
+style = 1
+base_color = Color(0.54509807, 0.5019608, 0.43529412, 1)
+detail_color = Color(0.7647059, 0.7137255, 0.5803922, 1)
+grain = 0.6
+side_color = Color(0.3137255, 0.3647059, 0.3882353, 1)
+side_detail_color = Color(0.50980395, 0.5647059, 0.5294118, 1)
+
+[resource]
+script = ExtResource("3_mn8ba")
+display_name = "石砖地牢 · 手绘"
+recipes = Array[ExtResource("1_ihvrk")]([SubResource("Resource_cycnn"), SubResource("Resource_2rcd7"), SubResource("Resource_ioe0e"), SubResource("Resource_i0ss6"), SubResource("Resource_n2yod"), SubResource("Resource_tor1i"), SubResource("Resource_uo6ut"), SubResource("Resource_1lqxy")])

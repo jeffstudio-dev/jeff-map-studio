@@ -1,0 +1,371 @@
+{
+  "id": "grass",
+  "style": "painted",
+  "version": 1,
+  "terrains": [
+    "GRASS"
+  ],
+  "concept": "concepts/painted_grass.aseprite",
+  "grid": {
+    "reference_tile": 128,
+    "tiling": "lattice_periodic"
+  },
+  "palette": {
+    "top": {
+      "concept_slice": "ramp/top",
+      "recolor_from_params": [
+        "base_color",
+        "detail_color"
+      ],
+      "anchor_steps": [
+        2,
+        4
+      ]
+    },
+    "side": {
+      "concept_slice": "ramp/soil",
+      "recolor_from_params": [
+        "side_color",
+        "side_detail_color"
+      ],
+      "anchor_steps": [
+        2,
+        4
+      ]
+    },
+    "stone": {
+      "concept_slice": "ramp/stone"
+    },
+    "accents": {
+      "concept_slices": "accent/*"
+    },
+    "jitter": {
+      "hue": 0.012,
+      "value": 0.05
+    },
+    "limits": {
+      "value_range": [
+        0.2,
+        0.92
+      ]
+    }
+  },
+  "top": {
+    "wash": {
+      "octaves": [
+        2,
+        4
+      ],
+      "weights": [
+        0.7,
+        0.3
+      ],
+      "tone_range": [
+        1.6,
+        4.2
+      ],
+      "posterize": 4,
+      "soften": 0.35
+    },
+    "strokes": [
+      {
+        "name": "大块斑驳",
+        "brush": "brush/leaf",
+        "per_tile": [
+          10,
+          14
+        ],
+        "size": [
+          24,
+          36
+        ],
+        "angle": [
+          -20,
+          10
+        ],
+        "tone": [
+          1.6,
+          4.2
+        ],
+        "opacity": [
+          0.22,
+          0.38
+        ],
+        "placement": "shared",
+        "prefer": "wash_low"
+      },
+      {
+        "name": "暗部草丛",
+        "brush": "brush/flick",
+        "per_tile": [
+          22,
+          30
+        ],
+        "cluster": [
+          3,
+          5
+        ],
+        "size": [
+          9,
+          12
+        ],
+        "angle": [
+          -12,
+          12
+        ],
+        "fan": 26,
+        "tone": [
+          0.7,
+          1.6
+        ],
+        "opacity": [
+          0.55,
+          0.8
+        ],
+        "placement": "shared"
+      },
+      {
+        "name": "中间调草丛",
+        "brush": "brush/flick",
+        "per_tile": [
+          34,
+          44
+        ],
+        "cluster": [
+          3,
+          5
+        ],
+        "size": [
+          8,
+          11
+        ],
+        "angle": [
+          -12,
+          12
+        ],
+        "fan": 24,
+        "tone": [
+          2.3,
+          3.4
+        ],
+        "opacity": [
+          0.65,
+          0.9
+        ],
+        "placement": "shared"
+      },
+      {
+        "name": "亮部草尖",
+        "brush": "brush/flick",
+        "per_tile": [
+          18,
+          26
+        ],
+        "cluster": [
+          2,
+          4
+        ],
+        "size": [
+          6,
+          9
+        ],
+        "angle": [
+          -10,
+          10
+        ],
+        "fan": 22,
+        "tone": [
+          4.0,
+          5.0
+        ],
+        "opacity": [
+          0.7,
+          0.95
+        ],
+        "placement": "interior",
+        "light_offset": [
+          -1,
+          -2
+        ]
+      },
+      {
+        "name": "小花",
+        "brush": "brush/dot",
+        "per_tile": [
+          1,
+          4
+        ],
+        "size": [
+          4,
+          5
+        ],
+        "accent": "accent/*",
+        "opacity": [
+          0.9,
+          1.0
+        ],
+        "placement": "interior"
+      }
+    ],
+    "variants": {
+      "count": 2,
+      "interior_margin": 0.12
+    }
+  },
+  "edges": {
+    "rim": {
+      "front": {
+        "brush": "brush/flick",
+        "tone": 5.0,
+        "spacing_px": 5,
+        "opacity": 0.75
+      },
+      "rear": {
+        "tone": 1.0,
+        "opacity": 0.35,
+        "width_px": 3
+      }
+    },
+    "transition": {
+      "priority": 30,
+      "over": [
+        "SAND",
+        "MUD"
+      ],
+      "status": "planned"
+    }
+  },
+  "side": {
+    "wash": {
+      "tone_top": 3.4,
+      "tone_bottom": 1.2,
+      "banding": 0.25
+    },
+    "strata": {
+      "brush": "brush/smear",
+      "per_face": [
+        8,
+        12
+      ],
+      "size": [
+        26,
+        44
+      ],
+      "tone": [
+        1.0,
+        4.0
+      ],
+      "opacity": [
+        0.35,
+        0.65
+      ]
+    },
+    "stones": {
+      "brush": "brush/stone",
+      "per_face": [
+        3,
+        5
+      ],
+      "size": [
+        16,
+        26
+      ],
+      "ramp": "stone",
+      "highlight_offset": [
+        -2,
+        -2
+      ]
+    },
+    "roots": {
+      "per_face": [
+        1,
+        3
+      ],
+      "tone": 4.0
+    },
+    "lip": {
+      "brush": "brush/flick",
+      "band_px": 5,
+      "depth_px": [
+        8,
+        16
+      ],
+      "per_px": 0.9,
+      "tone": [
+        1.2,
+        3.4
+      ],
+      "shadow": 0.42
+    },
+    "shading": {
+      "right_face_darken": 0.16
+    }
+  },
+  "user_params": {
+    "base_color": {
+      "type": "color",
+      "default": "87b461",
+      "label": "主色"
+    },
+    "detail_color": {
+      "type": "color",
+      "default": "c7d07a",
+      "label": "亮部色"
+    },
+    "side_color": {
+      "type": "color",
+      "default": "ab6743",
+      "label": "侧面主色"
+    },
+    "side_detail_color": {
+      "type": "color",
+      "default": "e0a46c",
+      "label": "侧面亮色"
+    },
+    "grain": {
+      "type": "float",
+      "range": [
+        0.0,
+        1.0
+      ],
+      "default": 0.6,
+      "label": "笔触密度"
+    },
+    "stroke_scale": {
+      "type": "float",
+      "range": [
+        0.6,
+        1.6
+      ],
+      "default": 1.0,
+      "label": "笔触大小"
+    },
+    "side_grain": {
+      "type": "float",
+      "range": [
+        0.0,
+        1.0
+      ],
+      "default": 0.65,
+      "label": "侧面细节"
+    }
+  },
+  "random": {
+    "seed_param": "seed_value",
+    "streams": {
+      "wash": 0,
+      "strokes_shared": 31,
+      "strokes_variant": 7919,
+      "rim": 211,
+      "side": 3701,
+      "transition": 4099
+    }
+  },
+  "validate": {
+    "palette_distance_max": 0.12,
+    "concept_histogram_distance_max": 0.35,
+    "lattice_seam": true,
+    "deterministic": true,
+    "bake_ms_budget_tile64": 1500
+  }
+}

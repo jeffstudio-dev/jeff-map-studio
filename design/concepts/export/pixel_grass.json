@@ -1,0 +1,49 @@
+{ "frames": [
+   {
+    "filename": "pixel_grass.aseprite",
+    "frame": { "x": 0, "y": 0, "w": 222, "h": 104 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 222, "h": 104 },
+    "sourceSize": { "w": 222, "h": 104 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.x-56757b5-dev",
+  "image": "pixel_grass_flat.png",
+  "format": "RGBA8888",
+  "size": { "w": 222, "h": 104 },
+  "scale": "1",
+  "layers": [
+   { "name": "reference", "opacity": 255, "blendMode": "normal" },
+   { "name": "palette", "opacity": 255, "blendMode": "normal" },
+   { "name": "motifs", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+   { "name": "ramp/top", "keys": [{ "frame": 0, "bounds": {"x": 2, "y": 34, "w": 30, "h": 5 } }] },
+   { "name": "ramp/soil", "keys": [{ "frame": 0, "bounds": {"x": 2, "y": 40, "w": 30, "h": 5 } }] },
+   { "name": "ramp/stone", "keys": [{ "frame": 0, "bounds": {"x": 2, "y": 46, "w": 30, "h": 5 } }] },
+   { "name": "accent/white", "keys": [{ "frame": 0, "bounds": {"x": 2, "y": 52, "w": 5, "h": 5 } }] },
+   { "name": "accent/yellow", "keys": [{ "frame": 0, "bounds": {"x": 8, "y": 52, "w": 5, "h": 5 } }] },
+   { "name": "accent/lilac", "keys": [{ "frame": 0, "bounds": {"x": 14, "y": 52, "w": 5, "h": 5 } }] },
+   { "name": "accent/shell", "keys": [{ "frame": 0, "bounds": {"x": 20, "y": 52, "w": 5, "h": 5 } }] },
+   { "name": "motif/tuft/01", "keys": [{ "frame": 0, "bounds": {"x": 2, "y": 62, "w": 3, "h": 2 } }] },
+   { "name": "motif/tuft/02", "keys": [{ "frame": 0, "bounds": {"x": 7, "y": 62, "w": 5, "h": 2 } }] },
+   { "name": "motif/tuft/03", "keys": [{ "frame": 0, "bounds": {"x": 14, "y": 62, "w": 3, "h": 3 } }] },
+   { "name": "motif/tuft/04", "keys": [{ "frame": 0, "bounds": {"x": 19, "y": 62, "w": 3, "h": 3 } }] },
+   { "name": "motif/tuft/05", "keys": [{ "frame": 0, "bounds": {"x": 24, "y": 62, "w": 3, "h": 3 } }] },
+   { "name": "motif/tuft/06", "keys": [{ "frame": 0, "bounds": {"x": 29, "y": 62, "w": 3, "h": 3 } }] },
+   { "name": "motif/flower/01", "keys": [{ "frame": 0, "bounds": {"x": 34, "y": 62, "w": 1, "h": 2 } }] },
+   { "name": "motif/flower/02", "keys": [{ "frame": 0, "bounds": {"x": 37, "y": 62, "w": 1, "h": 2 } }] },
+   { "name": "motif/flower/03", "keys": [{ "frame": 0, "bounds": {"x": 40, "y": 62, "w": 3, "h": 2 } }] },
+   { "name": "motif/flower/04", "keys": [{ "frame": 0, "bounds": {"x": 45, "y": 62, "w": 1, "h": 2 } }] },
+   { "name": "motif/cliff_stone/01", "keys": [{ "frame": 0, "bounds": {"x": 2, "y": 69, "w": 3, "h": 2 } }] },
+   { "name": "motif/cliff_stone/02", "keys": [{ "frame": 0, "bounds": {"x": 7, "y": 69, "w": 4, "h": 3 } }] },
+   { "name": "motif/root/01", "keys": [{ "frame": 0, "bounds": {"x": 13, "y": 69, "w": 1, "h": 3 } }] },
+   { "name": "motif/root/02", "keys": [{ "frame": 0, "bounds": {"x": 16, "y": 69, "w": 2, "h": 3 } }] },
+   { "name": "motif/drip/01", "keys": [{ "frame": 0, "bounds": {"x": 20, "y": 69, "w": 8, "h": 4 } }] }
+  ]
+ }
+}

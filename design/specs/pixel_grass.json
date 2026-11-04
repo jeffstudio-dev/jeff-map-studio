@@ -1,0 +1,63 @@
+{
+  "id": "grass",
+  "style": "pixel",
+  "version": 1,
+  "terrains": ["GRASS"],
+  "concept": "concepts/pixel_grass.aseprite",
+  "grid": {
+    "logical_tile": 32,
+    "pixel_size_param": "pixel_size",
+    "screen_aligned": true,
+    "tiling": "lattice_periodic"
+  },
+  "palette": {
+    "top": {"from_params": ["base_color", "detail_color"], "concept_slice": "ramp/top", "steps": 6, "shadow_hue": 0.69, "light_hue": 0.13, "hue_shift": 0.32, "saturation_boost": 0.12},
+    "side": {"from_params": ["side_color", "side_detail_color"], "concept_slice": "ramp/soil", "steps": 6},
+    "stone": {"concept_slice": "ramp/stone", "tint_toward": "side", "tint": 0.2},
+    "accents": {"concept_slices": "accent/*"},
+    "limits": {"max_colors_per_tile": 16, "anti_alias": false}
+  },
+  "top": {
+    "field": {"periods_from_scale": [0.75, 2, 12], "octaves": [1.0, 2.0], "weights": [0.65, 0.35], "tones": {"dark_below": 0.3, "light_above": 0.62}, "grain_param": "grain"},
+    "variants": {"count": 2, "interior_window": 0.3, "strength": 0.45},
+    "motifs": [
+      {"slices": "motif/tuft/*", "placement": "shared", "per_tile": 9, "scaled_by": "grain"},
+      {"slices": "motif/tuft/*", "placement": "interior", "per_tile": 3, "scaled_by": "grain"},
+      {"slices": "motif/flower/*", "placement": "interior", "per_tile": 1.4, "scaled_by": "grain", "requires": "illustrated"}
+    ]
+  },
+  "edges": {
+    "rim": {"front_tone": 4, "rear_tone": 2, "width_px": 1},
+    "transition": {"priority": 30, "over": ["SAND", "MUD"], "fringe_px": [1, 3], "motif": "motif/drip/*", "status": "planned"}
+  },
+  "side": {
+    "pattern": "moss",
+    "lip": {"rows": [2, 4], "wave_period_tiles": 0.33, "long_strand_chance": 0.18, "shadow_row": true, "motif": "motif/drip/*"},
+    "strata": {"band_period": 5, "band_tone": 2},
+    "stones": {"motif": "motif/cliff_stone/*", "cell": [5, 3], "chance": 0.42, "scaled_by": "side_grain"},
+    "roots": {"motif": "motif/root/*", "chance": 0.12, "max_depth_rows": 5},
+    "shading": {"right_face_shift": -1}
+  },
+  "user_params": {
+    "base_color": {"type": "color", "default": "88ac6a", "label": "主色"},
+    "detail_color": {"type": "color", "default": "c5d58c", "label": "亮部色"},
+    "side_color": {"type": "color", "default": "b38361", "label": "侧面主色"},
+    "side_detail_color": {"type": "color", "default": "ccb48b", "label": "侧面亮色"},
+    "grain": {"type": "float", "range": [0.0, 1.0], "default": 0.6, "label": "细节密度"},
+    "scale": {"type": "float", "range": [1.0, 16.0], "default": 4.0, "label": "色块尺度"},
+    "pixel_size": {"type": "int", "range": [1, 8], "default": 2, "label": "像素步长"},
+    "side_grain": {"type": "float", "range": [0.0, 1.0], "default": 0.65, "label": "侧面细节"},
+    "illustrated": {"type": "bool", "default": true, "label": "叠加像素簇"}
+  },
+  "random": {
+    "seed_param": "seed_value",
+    "streams": {"field": 0, "motif_shared": 31, "motif_variant": 7919, "rim": 211, "side": 3701, "transition": 4099}
+  },
+  "validate": {
+    "colors_subset_of_ramps": true,
+    "motif_coverage": [0.05, 0.2],
+    "top_mean_luminance": [0.42, 0.68],
+    "lattice_seam": true,
+    "deterministic": true
+  }
+}

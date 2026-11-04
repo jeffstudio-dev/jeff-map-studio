@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="TextureRecipe" format=3]
+
+[ext_resource type="Script" path="res://addons/jeff_map_studio/core/texture_recipe.gd" id="1_sqylr"]
+
+[resource]
+script = ExtResource("1_sqylr")
+material = 2
+base_color = Color(0.46666667, 0.5176471, 0.54509807, 1)
+detail_color = Color(0.6901961, 0.7176471, 0.69411767, 1)
+grain = 0.6
+side_color = Color(0.3372549, 0.3764706, 0.41960785, 1)
+side_detail_color = Color(0.5568628, 0.5921569, 0.5803922, 1)

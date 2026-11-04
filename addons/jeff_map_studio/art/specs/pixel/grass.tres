@@ -1,0 +1,53 @@
+[gd_resource type="Resource" script_class="TerrainArtSpec" format=3]
+
+[ext_resource type="Resource" path="res://addons/jeff_map_studio/art/concepts/pixel/grass.res" id="1_n80j1"]
+[ext_resource type="Script" path="res://addons/jeff_map_studio/core/art_motif_layer.gd" id="2_jsht8"]
+[ext_resource type="Script" path="res://addons/jeff_map_studio/core/terrain_art_spec.gd" id="3_ayl82"]
+
+[sub_resource type="Resource" id="Resource_n80j1"]
+script = ExtResource("2_jsht8")
+group = "tuft"
+per_tile = 9.0
+variant_scales = PackedFloat32Array()
+
+[sub_resource type="Resource" id="Resource_jsht8"]
+script = ExtResource("2_jsht8")
+group = "tuft"
+placement = 1
+per_tile = 3.0
+variant_scales = PackedFloat32Array(1, 0.7, 2.2, 1)
+
+[sub_resource type="Resource" id="Resource_ayl82"]
+script = ExtResource("2_jsht8")
+group = "flower"
+placement = 1
+per_tile = 1.4
+variant_scales = PackedFloat32Array(1, 0.5, 0.3, 0)
+
+[sub_resource type="Resource" id="Resource_1umqx"]
+script = ExtResource("2_jsht8")
+group = "flower_patch"
+placement = 1
+per_tile = 1.0
+variant_scales = PackedFloat32Array(0, 1.6, 0, 0)
+
+[sub_resource type="Resource" id="Resource_tibgu"]
+script = ExtResource("2_jsht8")
+group = "clover"
+placement = 1
+per_tile = 1.0
+variant_scales = PackedFloat32Array(0, 0, 0, 2.2)
+
+[resource]
+script = ExtResource("3_ayl82")
+id = "pixel_grass"
+version = 3
+concept = ExtResource("1_n80j1")
+light_above = 0.7
+variant_window = 0.22
+variant_strength = 0.8
+variant_tone_bias = PackedFloat32Array(0, 0.11, -0.08, -0.16)
+variant_region_cells = 5.0
+variant_mix = 1.2
+variant_order = PackedInt32Array(1, 0, 2, 3)
+motif_layers = Array[ExtResource("2_jsht8")]([SubResource("Resource_n80j1"), SubResource("Resource_jsht8"), SubResource("Resource_ayl82"), SubResource("Resource_1umqx"), SubResource("Resource_tibgu")])

@@ -1,0 +1,38 @@
+{ "frames": [
+   {
+    "filename": "painted_grass.aseprite",
+    "frame": { "x": 0, "y": 0, "w": 400, "h": 200 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 400, "h": 200 },
+    "sourceSize": { "w": 400, "h": 200 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.x-56757b5-dev",
+  "image": "painted_grass_flat.png",
+  "format": "RGBA8888",
+  "size": { "w": 400, "h": 200 },
+  "scale": "1",
+  "layers": [
+   { "name": "reference", "opacity": 255, "blendMode": "normal" },
+   { "name": "palette", "opacity": 255, "blendMode": "normal" },
+   { "name": "brushes", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+   { "name": "ramp/top", "keys": [{ "frame": 0, "bounds": {"x": 150, "y": 8, "w": 84, "h": 14 } }] },
+   { "name": "ramp/soil", "keys": [{ "frame": 0, "bounds": {"x": 150, "y": 26, "w": 70, "h": 14 } }] },
+   { "name": "ramp/stone", "keys": [{ "frame": 0, "bounds": {"x": 150, "y": 44, "w": 56, "h": 14 } }] },
+   { "name": "accent/white", "keys": [{ "frame": 0, "bounds": {"x": 150, "y": 62, "w": 14, "h": 14 } }] },
+   { "name": "accent/yellow", "keys": [{ "frame": 0, "bounds": {"x": 166, "y": 62, "w": 14, "h": 14 } }] },
+   { "name": "brush/leaf", "keys": [{ "frame": 0, "bounds": {"x": 150, "y": 90, "w": 28, "h": 16 } }] },
+   { "name": "brush/round", "keys": [{ "frame": 0, "bounds": {"x": 184, "y": 90, "w": 16, "h": 16 } }] },
+   { "name": "brush/flick", "keys": [{ "frame": 0, "bounds": {"x": 206, "y": 84, "w": 12, "h": 22 } }] },
+   { "name": "brush/smear", "keys": [{ "frame": 0, "bounds": {"x": 220, "y": 92, "w": 44, "h": 10 } }] },
+   { "name": "brush/stone", "keys": [{ "frame": 0, "bounds": {"x": 270, "y": 88, "w": 26, "h": 16 } }] },
+   { "name": "brush/dot", "keys": [{ "frame": 0, "bounds": {"x": 302, "y": 94, "w": 6, "h": 6 } }] }
+  ]
+ }
+}

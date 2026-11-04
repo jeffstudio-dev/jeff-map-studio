@@ -1,0 +1,73 @@
+{ "frames": [
+   {
+    "filename": "landmarks 0.aseprite",
+    "frame": { "x": 0, "y": 0, "w": 27, "h": 29 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 27, "h": 29 },
+    "sourceSize": { "w": 27, "h": 29 },
+    "duration": 100
+   },
+   {
+    "filename": "landmarks 1.aseprite",
+    "frame": { "x": 27, "y": 0, "w": 27, "h": 29 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 27, "h": 29 },
+    "sourceSize": { "w": 27, "h": 29 },
+    "duration": 100
+   },
+   {
+    "filename": "landmarks 2.aseprite",
+    "frame": { "x": 54, "y": 0, "w": 27, "h": 29 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 27, "h": 29 },
+    "sourceSize": { "w": 27, "h": 29 },
+    "duration": 100
+   },
+   {
+    "filename": "landmarks 3.aseprite",
+    "frame": { "x": 81, "y": 0, "w": 27, "h": 29 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 27, "h": 29 },
+    "sourceSize": { "w": 27, "h": 29 },
+    "duration": 100
+   },
+   {
+    "filename": "landmarks 4.aseprite",
+    "frame": { "x": 108, "y": 0, "w": 27, "h": 29 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 27, "h": 29 },
+    "sourceSize": { "w": 27, "h": 29 },
+    "duration": 100
+   },
+   {
+    "filename": "landmarks 5.aseprite",
+    "frame": { "x": 135, "y": 0, "w": 27, "h": 29 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 27, "h": 29 },
+    "sourceSize": { "w": 27, "h": 29 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.x-56757b5-dev",
+  "image": "landmarks.png",
+  "format": "RGBA8888",
+  "size": { "w": 162, "h": 29 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "tree", "from": 0, "to": 0, "direction": "forward", "color": "#000000ff" },
+   { "name": "rock", "from": 1, "to": 1, "direction": "forward", "color": "#000000ff" },
+   { "name": "chest", "from": 2, "to": 2, "direction": "forward", "color": "#000000ff" },
+   { "name": "mushrooms", "from": 3, "to": 3, "direction": "forward", "color": "#000000ff" },
+   { "name": "palm", "from": 4, "to": 4, "direction": "forward", "color": "#000000ff" },
+   { "name": "lighthouse", "from": 5, "to": 5, "direction": "forward", "color": "#000000ff" }
+  ]
+ }
+}

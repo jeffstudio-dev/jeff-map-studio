@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MapProfile" format=3]
+
+[ext_resource type="Script" path="res://addons/jeff_map_studio/core/map_profile.gd" id="1_ahv4n"]
+
+[resource]
+script = ExtResource("1_ahv4n")
+generator = 1
+projection = 0
+base_thickness = 16
+max_height = 2
+decoration_density = 0.02
